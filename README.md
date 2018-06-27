@@ -15,12 +15,12 @@ vertical fast scroller is as simple as adding elements as children to the `Recyc
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
             ....
-            other views can also come here
+            other view tags can also come here
             ....
     </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
     
-Since the fast scroller extends a `RelativeLayout` other view can also be added to it, with the rule of 
-the `RecyclerView` on which the fast scroller functionality needs to be added is the first element in the view group
+Since the fast scroller extends a `RelativeLayout` other view tags can also be added to it, with the rule being that 
+the `RecyclerView` on which the fast scroller functionality needs to be added be the first element in the `ViewGroup`
 
 #### Programmatically adding the RecyclerView
 
@@ -28,7 +28,7 @@ If the `RecyclerView` to be added to the fast scroller is not available during l
 by calling the `attachFastScrollerToRecyclerView` method on the `RecyclerView`
 
 ### Linking with items:
-To reflect the item on the index of the top-most visible item, add make the adapter implement the `OnPopupTextUpdate` interface, which override the method
+To reflect the item on the index of the top-most visible item, make the adapter implement the `OnPopupTextUpdate` interface, which overrides the method
 `onChange(int index)` which passes the index of the element whose info needs to be displayed in the popup. 
 
 The `CharSequence` to be displayed should be returned in this method. 
