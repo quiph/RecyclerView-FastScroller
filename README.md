@@ -1,8 +1,8 @@
-#RecyclerViewFastScroller
+# RecyclerViewFastScroller
 
 A simple, easy to use and configurable fast scroller for `RecyclerView`
 
-##Usage:
+## Usage:
 
 The base layout type for this fast scroller is a `RelativeLayout` so creating a simple
 vertical fast scroller is as simple as adding elements as children to the `RecyclerViewFastScroller` layout tag
@@ -22,12 +22,12 @@ vertical fast scroller is as simple as adding elements as children to the `Recyc
 Since the fast scroller extends a `RelativeLayout` other view can also be added to it, with the rule of 
 the `RecyclerView` on which the fast scroller functionality needs to be added is the first element in the view group
 
-####Programmatically adding the RecyclerView
+#### Programmatically adding the RecyclerView
 
 If the `RecyclerView` to be added to the fast scroller is not available during layout creation time, the same can be done programmatically 
 by calling the `attachFastScrollerToRecyclerView` method on the `RecyclerView`
 
-###Linking with items:
+### Linking with items:
 To reflect the item on the index of the top-most visible item, add make the adapter implement the `OnPopupTextUpdate` interface, which override the method
 `onChange(int index)` which passes the index of the element whose info needs to be displayed in the popup. 
 
@@ -43,7 +43,7 @@ Ex:
        }
     } 
 
-###Getting fast scroller callbacks:
+### Getting fast scroller callbacks:
 
 To get the callback from the fast scroller for different states, a listener can be added using the `setHandleStateListener` which accepts an interface of type
 `HandleStateListener` which has the following callback methods: 
@@ -51,7 +51,7 @@ To get the callback from the fast scroller for different states, a listener can 
 * `onDragged` - Called on every movement of the fast scroller, note: this does not get called when the handle moves programmatically, i.e when then the Scroll is programmatic
 * `onReleased` - Called when the fast scroller is released. 
 
-##Customizable XML Attributes: 
+## Customizable XML Attributes: 
 
 * `trackDrawable` - Adds a custom drawable to the scrolling track, defaults to `null` 
 * `handleDrawable` - Adds a custom drawable to the scrolling handle of the fast scroller 
@@ -67,7 +67,7 @@ To get the callback from the fast scroller for different states, a listener can 
 * `addLastItemPadding` - By default the last item of the `RecyclerView` associated with the fast scroller has an extra padding of the height of the first visible item found, to disable this behaviour set this as `false`
 * `fastScrollDirection` - TODO - currently the fast scroller only works in the `vertical` direction
 
-##Advanced usage:
+## Advanced usage:
 
 * Different color popups can be shown based on the position of the item shown, to do this, implement the `OnPopupViewUpdate` which overrides the 
 `onUpdate(position: Int, popupTextView: TextView)` which return void, but has an instance of the `TextView` used in popup, this can be used to change the background. 
