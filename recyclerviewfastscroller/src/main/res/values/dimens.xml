@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="corner_radius">6dp</dimen>
+    <!--fastScroller-->
+    <dimen name="default_handle_size">18dp</dimen>
+    <dimen name="default_popup_padding">16dp</dimen>
+    <dimen name="fastscroll_handle_default_margin">2dp</dimen>
+</resources>

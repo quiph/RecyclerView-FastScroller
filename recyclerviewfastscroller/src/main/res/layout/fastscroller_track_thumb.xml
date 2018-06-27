@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    tools:parentTag="android.widget.RelativeLayout"
+    android:layout_height="match_parent">
+    <LinearLayout android:layout_height="match_parent"
+        android:background="@null"
+        android:id="@+id/trackView"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content">
+
+        <android.support.v7.widget.AppCompatImageView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            tools:srcCompat="@drawable/custom_bg_primary"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/thumbIV"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.AppCompatImageView>
+    </LinearLayout>
+</merge>

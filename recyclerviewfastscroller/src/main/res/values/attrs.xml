@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RecyclerViewFastScroller">
+        <attr name="trackDrawable" format="reference"/>
+        <attr name="handleDrawable" format="reference"/>
+        <attr name="popupDrawable" format="reference"/>
+        <attr name="popupTextStyle" format="reference"/>
+        <attr name="fastScrollEnabled" format="boolean"/>
+        <attr name="popupPosition" format="enum">
+            <enum name="beforeTrack" value="0"/>
+            <enum name="afterTrack" value="1"/>
+        </attr>
+        <attr name="addLastItemPadding" format="boolean"></attr>
+        <attr name="fastScrollDirection" format="enum">
+            <enum name="vertical" value="0"/>
+            <enum name="horizontal" value="1"/>
+        </attr>
+        <attr name="handleWidth" format="dimension"/>
+        <attr name="handleHeight" format="dimension"/>
+        <attr name="handleHasFixedSize" format="boolean"/>
+    </declare-styleable>
+ </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/default_popup_padding"
+    android:id="@+id/fastScrollPopupTV"
+    tools:text="A"
+    android:gravity="center"
+    android:minWidth="56dp"
+    android:minHeight="56dp"
+    android:scaleX="0"
+    android:scaleY="0"
+    android:background="@drawable/custom_bg_primary"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+</TextView>

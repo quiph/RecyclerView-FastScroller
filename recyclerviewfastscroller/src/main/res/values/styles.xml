@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="FastScrollerTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/background</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+</resources>
