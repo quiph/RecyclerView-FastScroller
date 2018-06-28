@@ -1,20 +1,15 @@
 package com.qtalk.sample
 
 import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
 import com.qtalk.sample.fragments.AdvancedFragment
 import com.qtalk.sample.fragments.BasicFragment
 import com.qtalk.sample.fragments.ContactsFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.security.Permission
-import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,8 +20,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         view_pager.adapter = ViewPagerAdapter(supportFragmentManager, this)
-        view_pager.adapter=ViewPagerAdapter(supportFragmentManager)
-
     }
 
    private class ViewPagerAdapter internal  constructor(fm: FragmentManager?,  val mContext: Context?) : FragmentPagerAdapter(fm) {
@@ -36,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             lateinit var fragment : Fragment
             when (position){
                 0 -> fragment = BasicFragment()
-                1 -> fragment = BasicFragment()
+                1 -> fragment = AdvancedFragment()
                 2 -> fragment = ContactsFragment()
             }
             return fragment

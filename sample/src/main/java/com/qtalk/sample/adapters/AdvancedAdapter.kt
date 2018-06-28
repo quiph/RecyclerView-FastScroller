@@ -19,7 +19,7 @@ class AdvancedAdapter(private val mContext : Context?, private val countriesList
         , RecyclerViewFastScroller.OnPopupViewUpdate {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder?.mTextView?.text = countriesList[position].countryName
+        holder.mTextView?.text = countriesList[position].countryName
     }
 
     override fun getItemCount() = countriesList.size
@@ -39,10 +39,10 @@ class AdvancedAdapter(private val mContext : Context?, private val countriesList
     }
 
     private fun getColor(power: Int): Int {
-        val H = (itemCount - power) * 100/itemCount
-        val S = 1 // Saturation
-        val V = 0.8 // Value
-        return Color.HSVToColor(floatArrayOf(H.toFloat(), S.toFloat(), V.toFloat()))
+        val h = (itemCount - power) * 100/itemCount
+        val s = 1 // Saturation
+        val v = 0.8 // Value
+        return Color.HSVToColor(floatArrayOf(h.toFloat(), s.toFloat(), v.toFloat()))
     }
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){

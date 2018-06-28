@@ -22,7 +22,7 @@ class BasicAdapter(private val mContext : Context? ) : RecyclerView.Adapter<Basi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder?.mTextView?.text = (position+1).toString()
+        holder.mTextView.text = (position+1).toString()
     }
 
     override fun getItemCount() = 100
