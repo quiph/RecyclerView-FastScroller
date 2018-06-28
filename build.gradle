@@ -8,9 +8,11 @@ buildscript {
             'minSdk': 19,
             'targetSdk': 27,
             'supportLibrary': '27.1.1',
-            'constraintLayout':'1.1.2'
+            'constraintLayout':'1.1.2',
+            'gson':'2.8.5'
     ]
     ext.deps = [
+            'gson':"com.google.code.gson:gson:${versions.gson}",
             'constraintLayout': "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
             'support': [
                     'annotations': "com.android.support:support-annotations:${versions.supportLibrary}",

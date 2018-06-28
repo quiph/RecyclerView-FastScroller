@@ -19,6 +19,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
+import java.util.*
 
 class AdvancedFragment : Fragment(){
 
@@ -39,6 +40,7 @@ class AdvancedFragment : Fragment(){
            }
        }
         loadJSONFromAsset()
+        countriesList.sort()
         adapter.notifyDataSetChanged()
     }
 

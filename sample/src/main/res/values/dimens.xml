@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="padding"></dimen>
     <dimen name="countries_margin">8dp</dimen>
     <dimen name="line_margin">20dp</dimen>
     <dimen name="recycler_view_margin">20dp</dimen>
