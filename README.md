@@ -1,10 +1,8 @@
-# ![alt text](https://kotlinlang.org/assets/images/open-graph/kotlin_250x250.png "Kotlin") RecyclerViewFastScroller
+# <img src ="https://upload.wikimedia.org/wikipedia/commons/b/b5/Kotlin-logo.png" width=24> RecyclerViewFastScroller
 
 A simple, easy to use and configurable fast scroller for `RecyclerView` 
 
-![alt text](https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_contacts.gif "Contacts")
-![alt text](https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_countries.gif "Countries")
-![alt text](https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_numbers.gif "Numbers")
+<img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_contacts.gif" width=280> <img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_countries.gif" width=280> <img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_numbers.gif" width=280>
 
 ## Usage:
 
@@ -93,9 +91,9 @@ class MyAdapter : RecyclerView.Adapter<SomeViewHolder>, OnPopupViewUpdate{
 ```
 The `popupDrawable` attribute and the `popupTextStyle` attributes can be used to create different kinds of elements, shapes and text appearance combinations, for example like the popup similar to the Google Dialer app:
 
-![alt text](https://raw.githubusercontent.com/quiph/RecyclerView-FastScroller/master/graphics/screenshot_contacts1.png "Contacts Screenshot")
+<img src = "https://raw.githubusercontent.com/quiph/RecyclerView-FastScroller/master/graphics/screenshot_contacts1.png" width = 320>
 
-Check the sample to view the implementation. Many such shapes and text style can be used.
+Check the sample to view the implementation. Many such shapes and text styles can be created.
 
 #### Proguard: 
 There is no need for any additional proguard rules when using this. 
@@ -105,5 +103,6 @@ There is no need for any additional proguard rules when using this.
 * Add support for `horizontal` fast scrolling
 * Make handle size flexible to item count in adapter
 * Fix 0 item bug, which makes the fast scroller visible 
+
 
 Made with :heart: in India
