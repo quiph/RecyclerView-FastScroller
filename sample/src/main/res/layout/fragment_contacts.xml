@@ -4,6 +4,8 @@
     android:id="@+id/fast_scroller_contacts"
     app:handleWidth="@dimen/default_handle_size"
     app:handleHeight="32dp"
+    app:popupTextStyle="@style/ContactsPopupTextViewStyle"
+    app:popupDrawable="@drawable/contacts_fastscroller_drawable"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"

@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -34,11 +35,18 @@ class ContactsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         with(view)
         {
+            //programmatically alter the `width` and `height` of the PopupTextView of FastScroller
+            with(fast_scroller_contacts){
+                popupTextView.layoutParams.width = activity?.resources?.getDimension(R.dimen.contacts_popup_size)?.toInt()?: 0
+                popupTextView.layoutParams.height = activity?.resources?.getDimension(R.dimen.contacts_popup_size)?.toInt()?: 0
+                popupTextView.requestLayout()
+            }
             with(contacts_recycler_view)
             {
                 layoutManager = LinearLayoutManager(activity)
                 adapter = ContactsAdapter(activity,mNameList)
                 addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+                //checking for permissions to fetch contacts
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && activity?.checkSelfPermission(android.Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)
                 {
                     requestPermissions(arrayOf(android.Manifest.permission.READ_CONTACTS),PERMISSIONS_REQUEST_READ_CONTACTS)

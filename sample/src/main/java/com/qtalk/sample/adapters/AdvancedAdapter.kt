@@ -30,9 +30,9 @@ class AdvancedAdapter(private val mContext : Context?, private val countriesList
     }
 
     override fun onUpdate(position: Int, popupTextView: TextView) {
+        //setting colorfilter using HSV hue to get a gradient effect on the PopupTextView and Hanlde background
         popupTextView.background.colorFilter = PorterDuffColorFilter(getColor(power = position),
                 PorterDuff.Mode.SRC_IN)
-       // todo update handle
         handleDrawable?.colorFilter = PorterDuffColorFilter(getColor( power = position),
                 PorterDuff.Mode.SRC_IN)
         popupTextView.text = countriesList[position].countryName[0].toString()

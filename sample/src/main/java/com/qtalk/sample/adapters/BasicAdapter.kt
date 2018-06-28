@@ -18,7 +18,7 @@ class BasicAdapter(private val mContext : Context? ) : RecyclerView.Adapter<Basi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
      return ViewHolder(LayoutInflater.from(mContext)
-             .inflate(R.layout.recycler_view_list_item, parent, false))
+             .inflate(R.layout.recycler_view_list_item_center, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

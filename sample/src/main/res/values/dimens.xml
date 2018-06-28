@@ -5,4 +5,7 @@
     <dimen name="line_margin">20dp</dimen>
     <dimen name="recycler_view_margin">20dp</dimen>
     <dimen name="text_view_padding">16dp</dimen>
+    <dimen name="contacts_fastscroller_radius">48dp</dimen>
+    <dimen name="contacts_popup_text_size">36sp</dimen>
+    <dimen name="contacts_popup_size">96dp</dimen>
 </resources>
