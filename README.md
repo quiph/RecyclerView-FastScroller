@@ -1,23 +1,28 @@
-# RecyclerViewFastScroller
+# ![alt text](https://kotlinlang.org/assets/images/open-graph/kotlin_250x250.png "Kotlin") RecyclerViewFastScroller
 
-A simple, easy to use and configurable fast scroller for `RecyclerView`
+A simple, easy to use and configurable fast scroller for `RecyclerView` 
+
+![alt text](https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_contacts.gif "Contacts")
+![alt text](https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_countries.gif "Countries")
+![alt text](https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_numbers.gif "Numbers")
 
 ## Usage:
 
 The base layout type for this fast scroller is a `RelativeLayout` so creating a simple
 vertical fast scroller is as simple as adding elements as children to the `RecyclerViewFastScroller` layout tag
-
-    <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
-            android:layout_width="match_parent"
-            android:id="@+id/fastscroller"
-           android:layout_height="match_parent">
-            <android.support.v7.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-            ....
-            other view tags can also come here
-            ....
-    </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
+```xml
+<com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
+        android:layout_width="match_parent"
+        android:id="@+id/fastscroller"
+       android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+        ....
+        other view tags can also come here
+        ....
+</com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
+```
     
 Since the fast scroller extends a `RelativeLayout` other view tags can also be added to it, with the rule being that 
 the `RecyclerView` on which the fast scroller functionality needs to be added be the first element in the `ViewGroup`
@@ -35,13 +40,15 @@ The `CharSequence` to be displayed should be returned in this method.
 
 Ex:
 
-    class MyAdapter : RecyclerView.Adapter .... implements OnPopupTextUpdate{
-    ....
-    override fun onChange(position: Int): CharSequence {
-       val header = ......
-       return header                  
-       }
-    } 
+```kotlin
+class MyAdapter : RecyclerView.Adapter<SomeViewHolder>, OnPopupTextUpdate{
+// ....
+override fun onChange(position: Int): CharSequence {
+   val header = // compute value for header using position
+   return header                  
+   }
+}
+``` 
 
 ### Getting fast scroller callbacks:
 
@@ -72,15 +79,24 @@ To get the callback from the fast scroller for different states, a listener can 
 * Different color popups can be shown based on the position of the item shown, to do this, implement the `OnPopupViewUpdate` which overrides the 
 `onUpdate(position: Int, popupTextView: TextView)` which return void, but has an instance of the `TextView` used in popup, this can be used to change the background. 
 
+Check the sample file [AdvancedFragment](https://github.com/quiph/RecyclerView-FastScroller/blob/master/sample/src/main/java/com/qtalk/sample/fragments/AdvancedFragment.kt) and [AdvancedAdapter](https://github.com/quiph/RecyclerView-FastScroller/blob/master/sample/src/main/java/com/qtalk/sample/adapters/AdvancedAdapter.kt) for example usage
+
 Ex: 
-    
-    class MyAdapter : RecyclerView.Adapter .... implements OnPopupViewUpdate{
-        ....
-        override fun onChange(position: Int, popupTextView: TextView) {
-           // Do something with the TextView here
-           popupTextView.setBackground(....)
-           }
-    }
+```kotlin
+class MyAdapter : RecyclerView.Adapter<SomeViewHolder>, OnPopupViewUpdate{
+
+    override fun onChange(position: Int, popupTextView: TextView) {
+       // Do something with the TextView here
+       popupTextView.background = Color.RED // change some values etc
+       }
+}
+```
+The `popupDrawable` attribute and the `popupTextStyle` attributes can be used to create different kinds of elements, shapes and text appearance combinations, for example like the popup similar to the Google Dialer app:
+
+![alt text](https://raw.githubusercontent.com/quiph/RecyclerView-FastScroller/master/graphics/screenshot_contacts1.png "Contacts Screenshot")
+
+Check the sample to view the implementation. Many such shapes and text style can be used.
+
 #### Proguard: 
 There is no need for any additional proguard rules when using this. 
 
@@ -89,3 +105,5 @@ There is no need for any additional proguard rules when using this.
 * Add support for `horizontal` fast scrolling
 * Make handle size flexible to item count in adapter
 * Fix 0 item bug, which makes the fast scroller visible 
+
+Made with :heart: in India
