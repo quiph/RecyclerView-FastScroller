@@ -8,7 +8,6 @@ import android.graphics.Rect
 import android.support.annotation.*
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.TextViewCompat
-import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -18,6 +17,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewPropertyAnimator
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -145,7 +145,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private var popupPosition : PopupPosition = Defaults.popupPosition
     private var fastScrollDirection : FastScrollDirection = Defaults.fastScrollDirection
     private var hasEmptyItemDecorator : Boolean = Defaults.hasEmptyItemDecorator
-    private lateinit var handleImageView : AppCompatImageView
+    private lateinit var handleImageView : ImageView
     private lateinit var trackView: LinearLayout
     private lateinit var recyclerView: RecyclerView
     private var popupAnimationRunnable: Runnable

@@ -2,6 +2,25 @@
 
 buildscript {
     ext.kotlin_version = '1.2.50'
+    ext.versions = [
+            'compileSdk': 27,
+            'buildTools': '27.0.3',
+            'minSdk': 19,
+            'targetSdk': 27,
+            'supportLibrary': '27.1.1',
+            'constraintLayout':'1.1.2'
+    ]
+    ext.deps = [
+            'constraintLayout': "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
+            'support': [
+                    'annotations': "com.android.support:support-annotations:${versions.supportLibrary}",
+                    'v4': "com.android.support:support-v4:${versions.supportLibrary}",
+                    'appCompat': "com.android.support:appcompat-v7:${versions.supportLibrary}",
+                    'design': "com.android.support:design:${versions.supportLibrary}",
+                    'recyclerView': "com.android.support:recyclerview-v7:${versions.supportLibrary}",
+                    'cardView': "com.android.support:cardview-v7:${versions.supportLibrary}",
+            ]
+    ]
     repositories {
         google()
         jcenter()

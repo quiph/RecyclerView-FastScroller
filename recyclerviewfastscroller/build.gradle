@@ -2,11 +2,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
 android {
-    compileSdkVersion 27
-
+    compileSdkVersion versions.'compileSdk'
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 27
+        minSdkVersion versions.'minSdk'
+        targetSdkVersion versions.'targetSdk'
         versionCode 1
         versionName "1.0-alpha"
 
@@ -36,8 +35,7 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.50'
 
     // support libs
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation deps.support.recyclerView
 
     // testing libs
     testImplementation 'junit:junit:4.12'
