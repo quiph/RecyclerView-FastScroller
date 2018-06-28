@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="PagerTitleStripStyle">
+        <item name="android:textColor">@android:color/white</item>
+
+    </style>
+
 </resources>

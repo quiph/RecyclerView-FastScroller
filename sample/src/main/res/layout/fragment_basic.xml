@@ -9,6 +9,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:id="@+id/basic_recycler_view">
+    android:id="@+id/basic_recycler_view"
+    android:layout_marginLeft="@dimen/recycler_view_margin"
+    android:layout_marginRight="@dimen/recycler_view_margin">
 </android.support.v7.widget.RecyclerView>
 </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>

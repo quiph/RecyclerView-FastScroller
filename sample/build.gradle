@@ -27,7 +27,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project (':recyclerviewfastscroller')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation deps.support.appCompat
     implementation deps.support.recyclerView
 
