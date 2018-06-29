@@ -19,12 +19,6 @@ android {
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        staging{
-
-        }
-        debug{
-
-        }
     }
 }
 
@@ -36,6 +30,7 @@ dependencies {
 
     // support libs
     implementation deps.support.recyclerView
+    implementation deps.support.appCompat
 
     // testing libs
     testImplementation 'junit:junit:4.12'
@@ -44,4 +39,8 @@ dependencies {
 }
 repositories {
     mavenCentral()
+}
+
+tasks.withType(Javadoc).all {
+    enabled = false // <--- https://github.com/novoda/bintray-release/issues/71
 }

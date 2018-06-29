@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable
 import android.support.annotation.*
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.TextViewCompat
+import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -33,7 +34,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewPropertyAnimator
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -164,7 +164,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private var popupPosition : PopupPosition = Defaults.popupPosition
     private var fastScrollDirection : FastScrollDirection = Defaults.fastScrollDirection
     private var hasEmptyItemDecorator : Boolean = Defaults.hasEmptyItemDecorator
-    private lateinit var handleImageView : ImageView
+    private lateinit var handleImageView : AppCompatImageView
     private lateinit var trackView: LinearLayout
     private lateinit var recyclerView: RecyclerView
     private var popupAnimationRunnable: Runnable
@@ -178,7 +178,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
      *
      * @return `true` if yes else `false`
      * */
-    val isVertical : Boolean = fastScrollDirection == FastScrollDirection.VERTICAL
+//    val isVertical : Boolean = fastScrollDirection == FastScrollDirection.VERTICAL
 
     //    load attributes to set view based values
     private val attribs : TypedArray? = if (attrs!=null){
@@ -235,6 +235,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         detachFastScrollerFromRecyclerView()
         super.onDetachedFromWindow()
     }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -254,10 +255,11 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             //this offset is to nullify the difference in the height between the handle and touch's relative value
             var touchRelativeOffset = 0f
             val touchListener  = OnTouchListener { _, motionEvent ->
+
                 //getting the position of this view on the screen, getting absolute X and Y coordinates
                 getLocationInWindow(locationArray)
                 val yAbsPosition : Int = locationArray[1]
-                val xAbsPosition : Int = locationArray[0]
+//                val xAbsPosition : Int = locationArray[0]
                 when(motionEvent.action){
                     MotionEvent.ACTION_MOVE, MotionEvent.ACTION_DOWN  -> {
                         // disallow parent to spy on touch events
@@ -324,6 +326,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             trackView.setOnTouchListener(touchListener)
         }
     }
+
     private fun alignPopupLayout() {
         val lpPopupLayout = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).also {
             when (popupPosition) {
@@ -417,15 +420,6 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             this.animate().scaleY(scaleFactor).duration = Defaults.DEFAULT_ANIM_DURATION
         }
     }
-    private fun resizeThumbDrawable(){
-        if (isFixedSizeHandle) return
-
-        /*if (orientation == HORIZONTAL){
-            thumbDrawable.setSize(thumbDrawable.bounds.width(), computeHandleSize())
-        }else{
-            thumbDrawable.setSize(computeHandleSize(), thumbDrawable.bounds.height())
-        }*/
-    }
 
     //    set of load methods for handy loading from attribs
     private fun loadDimenFromResource(@DimenRes dimenSize: Int) : Float = context.resources.getDimension(dimenSize)
@@ -442,13 +436,6 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             = attribs?.getDrawable(styleId)
 
     //    extension functions to get the total visible count of items.
-    private fun LinearLayoutManager.getTotalVisibleItemCount(): Int {
-        val firstVisibleItemPosition = this.findFirstVisibleItemPosition()
-        val lastVisibleItemPosition = this.findLastVisibleItemPosition()
-        if (firstVisibleItemPosition == RecyclerView.NO_POSITION || lastVisibleItemPosition == RecyclerView.NO_POSITION) return RecyclerView.NO_POSITION
-        return lastVisibleItemPosition - firstVisibleItemPosition
-    }
-
     private fun LinearLayoutManager.getTotalCompletelyVisibleItemCount(): Int {
         val firstVisibleItemPosition = this.findFirstCompletelyVisibleItemPosition()
         val lastVisibleItemPosition = this.findLastCompletelyVisibleItemPosition()
