@@ -1,8 +1,16 @@
 # <img src ="https://upload.wikimedia.org/wikipedia/commons/b/b5/Kotlin-logo.png" width=24> RecyclerViewFastScroller
 
+![Github release](https://img.shields.io/github/release/quiph/recyclerview-fastscroller.svg)
+![Maven version](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/quiph/ui/recyclerviewfastscroller/maven-metadata.xml.svg) ![Code size](https://img.shields.io/github/languages/code-size/quiph/recyclerview-fastscroller.svg) ![Apache 2.0 License](https://img.shields.io/github/license/quiph/recyclerview-fastscroller.svg)
+
 A simple, easy to use and configurable fast scroller for `RecyclerView` 
 
 <img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_contacts.gif" width=280> <img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_countries.gif" width=280> <img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_numbers.gif" width=280>
+
+## Adding the dependency
+```groovy
+implementation 'com.quiph.ui:recyclerviewfastscroller:0.1.1-alpha'
+```
 
 ## Usage:
 
