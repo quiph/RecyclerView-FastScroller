@@ -9,7 +9,7 @@ A simple, easy to use and configurable fast scroller for `RecyclerView`
 
 ## Adding the dependency
 ```groovy
-implementation 'com.quiph.ui:recyclerviewfastscroller:0.1.1-alpha'
+implementation 'com.quiph.ui:recyclerviewfastscroller:0.1.2-alpha'
 ```
 ## Java-only project?
 As Kotlin compiles to Java, there's no need to externally add the Kotlin runtime or any other Kotlin dependencies when using this. Also the library is **100% compatible with Java** and requires **no migration** of the base project to Kotlin. 
@@ -113,6 +113,3 @@ There is no need for any additional proguard rules when using this.
 * Add support for `horizontal` fast scrolling
 * Make handle size flexible to item count in adapter
 * Fix 0 item bug, which makes the fast scroller visible 
-
-
-Made with :heart: in India
