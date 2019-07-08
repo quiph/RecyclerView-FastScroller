@@ -5,14 +5,13 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.qtalk.sample.R
 import com.qtalk.sample.adapters.ContactsAdapter
 import kotlinx.android.synthetic.main.fragment_contacts.view.*
@@ -62,13 +61,19 @@ class ContactsFragment : Fragment() {
     }
     private fun retrieveContacts() {
 
-        activity?.contentResolver?.let {
-            it.query(ContactsContract.Contacts.CONTENT_URI, arrayOf(ContactsContract.Contacts.DISPLAY_NAME),null,null,"${ContactsContract.Contacts.DISPLAY_NAME} ASC" ).use{
-                while(it.moveToNext()){
-                    mNameList.add(it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)))
+        activity
+                ?.contentResolver
+                ?.let { contentResolver ->
+                    contentResolver
+                            .query(
+                                    ContactsContract.Contacts.CONTENT_URI,
+                                    arrayOf(ContactsContract.Contacts.DISPLAY_NAME),null,null,"${ContactsContract.Contacts.DISPLAY_NAME} ASC"
+                            )?.use{
+                                while(it.moveToNext()){
+                                    mNameList.add(it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)))
+                                }
+                            }
                 }
-            }
-        }
         view?.contacts_recycler_view?.adapter?.notifyDataSetChanged()
     }
 
