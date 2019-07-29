@@ -62,7 +62,7 @@ override fun onChange(position: Int): CharSequence {
 
 To get the callback from the fast scroller for different states, a listener can be added using the `setHandleStateListener` which accepts an interface of type
 `HandleStateListener` which has the following callback methods: 
-* `onEngaged` - Called  when the fast scroller is enaged
+* `onEngaged` - Called  when the fast scroller is engaged
 * `onDragged` - Called on every movement of the fast scroller, note: this does not get called when the handle moves programmatically, i.e when then the Scroll is programmatic
 * `onReleased` - Called when the fast scroller is released. 
 
@@ -78,7 +78,7 @@ To get the callback from the fast scroller for different states, a listener can 
    2. `afterTrack` - Position it after the scroll track
 * `handleWidth` - Use to custom set the width of the fast scroll handle - Defaults to 18dp
 * `handleHeight` - Use to custom set the height of the fast scroll handle - Defaults to 18dp
-* `handleHasFixedSize` - TODO - currently setting this to false doesn`t do anything, as the size of the handle is independent of the item count
+* `handleHasFixedSize` - TODO - currently setting this to false doesn't do anything, as the size of the handle is independent of the item count
 * `addLastItemPadding` - By default the last item of the `RecyclerView` associated with the fast scroller has an extra padding of the height of the first visible item found, to disable this behaviour set this as `false`
 * `fastScrollDirection` - TODO - currently the fast scroller only works in the `vertical` direction
 
@@ -121,7 +121,19 @@ This path has a number of aars in it, (debug and release variants namely). To us
 // implementation files("${rootProject.projectDir}/recyclerviewfastscroller/build/outputs/aar/recyclerviewfastscroller-release.aar")
 ```
 
-Don't forget to comment the project/ module dependency above it. Resync the project and run the sample to test how the compiled version would behave. 
+Don't forget to comment the project/ module dependency above it. Re-sync the project and run the sample to test how the compiled version would behave. 
+
+#### Uploading to maven central: 
+
+We will be using the Nexus Software Repository for pushing our aars to maven-central, there are different methods to do this, 
+another simple way is to upload to bintray and then push to maven-central from there, which one to use can completely depend upon the developer.
+
+Detailed explanation [here](https://gist.github.com/shahsurajk/471a10b63207e44bbbaa4badd9706770). 
+
+Once the environment is setup as mentioned in the gist, run the following command: 
+```bash
+./gradlew clean build uploadArchives
+```
 
 #### TODO: 
 
