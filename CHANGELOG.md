@@ -1,3 +1,8 @@
+# From v0.1.2:
+
+## Bug Fixes
+* Fixes #4.
+
 # From 0.1.1-alpha:
 
 # Major Changes
