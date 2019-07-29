@@ -25,7 +25,16 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // toggle this dependency to include local project dep
     implementation project(':recyclerviewfastscroller')
+
+    // local aar, don't forget to comment the project/module dependency above
+    // implementation files("${rootProject.projectDir}/recyclerviewfastscroller/build/outputs/aar/recyclerviewfastscroller-release.aar")
+
+    // fetch from maven central, don't forget to comment the project/module dependency above
+    // implementation 'com.quiph.ui:recyclerviewfastscroller:0.1.2'
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation deps.gson
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
@@ -35,6 +44,6 @@ dependencies {
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13-beta-3'
-    androidTestImplementation 'androidx.test:runner:1.3.0-alpha01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'
+    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
 }
