@@ -1,15 +1,24 @@
-<com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fast_scroller"
-    app:handleWidth="@dimen/default_handle_size"
-    app:handleHeight="32dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<androidx.recyclerview.widget.RecyclerView
-    android:layout_height="match_parent"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
-    android:id="@+id/basic_recycler_view"
-    android:layout_marginLeft="@dimen/recycler_view_margin"
-    android:layout_marginRight="@dimen/recycler_view_margin">
-</androidx.recyclerview.widget.RecyclerView>
-</com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
+    android:layout_height="match_parent">
+
+    <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
+        android:id="@+id/fast_scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:handleHeight="32dp"
+        app:handleWidth="@dimen/default_handle_size"
+        app:supportSwipeToRefresh="true">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/basic_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/recycler_view_margin"
+            android:layout_marginRight="@dimen/recycler_view_margin" />
+
+    </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
