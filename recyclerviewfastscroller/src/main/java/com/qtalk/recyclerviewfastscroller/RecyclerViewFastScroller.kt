@@ -23,12 +23,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import androidx.annotation.*
-import androidx.core.content.ContextCompat
-import androidx.core.widget.TextViewCompat
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
@@ -39,6 +34,15 @@ import android.view.ViewPropertyAnimator
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.annotation.DimenRes
+import androidx.annotation.Keep
+import androidx.annotation.StyleRes
+import androidx.annotation.StyleableRes
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
+import androidx.core.widget.TextViewCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -214,6 +218,10 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
 
             trackView.background = attribs.getDrawable(R.styleable.RecyclerViewFastScroller_trackDrawable)
 
+            if (it.getBoolean(R.styleable.RecyclerViewFastScroller_supportSwipeToRefresh,false)) {
+                enableNestedScrolling()
+            }
+
             //align added layouts based on configurations in use.
             alignTrackAndHandle()
             alignPopupLayout()
@@ -378,6 +386,16 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private fun addPopupLayout(){
         View.inflate(context, R.layout.fastscroller_popup, this)
         popupTextView = findViewById(R.id.fastScrollPopupTV)
+    }
+
+    /**
+     * Sets [isNestedScrollingEnabled] to true to enable support for fast scrolling when swipe
+     * refresh layout is added as parent layout.
+     */
+    private fun enableNestedScrolling() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            isNestedScrollingEnabled = true
+        }
     }
 
     /**
