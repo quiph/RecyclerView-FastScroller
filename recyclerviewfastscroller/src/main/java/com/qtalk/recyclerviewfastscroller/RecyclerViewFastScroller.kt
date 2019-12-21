@@ -218,8 +218,9 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
 
             trackView.background = attribs.getDrawable(R.styleable.RecyclerViewFastScroller_trackDrawable)
 
-            if (it.getBoolean(R.styleable.RecyclerViewFastScroller_supportSwipeToRefresh,false))
+            if (it.getBoolean(R.styleable.RecyclerViewFastScroller_supportSwipeToRefresh,false)) {
                 enableNestedScrolling()
+            }
 
             //align added layouts based on configurations in use.
             alignTrackAndHandle()
