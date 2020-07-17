@@ -43,7 +43,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -310,32 +309,23 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
 
             // getting the position of this view on the screen, getting absolute X and Y coordinates
             getLocationInWindow(locationArray)
+            val yAbsPosition: Int = locationArray[1]
 
-            // this offset is to nullify the difference in the height between the handle and touch's relative value
-            var touchRelativeOffset = 0f
             val touchListener = OnTouchListener { _, motionEvent ->
-
-                val yAbsPosition: Int = locationArray[1]
-                // val xAbsPosition : Int = locationArray[0]
 
                 val touchAction = motionEvent.action.and(motionEvent.actionMasked)
                 log("Touch Action: $touchAction")
+
                 when (touchAction) {
                     MotionEvent.ACTION_MOVE, MotionEvent.ACTION_DOWN -> {
+
                         // disallow parent to spy on touch events
                         requestDisallowInterceptTouchEvent(true)
+
                         if (motionEvent.action == MotionEvent.ACTION_DOWN) {
                             if (!adapterDataObserver.isInitialized()) {
                                 registerDataObserver()
                             }
-
-                            // compute relative touch offset only on DOWN and use the same for MOVE events
-                            touchRelativeOffset =
-                                motionEvent.rawY - yAbsPosition - handleImageView.y
-
-                            // check if offset is in bounds
-                            if (abs(touchRelativeOffset) > handleImageView.height) touchRelativeOffset =
-                                0f
 
                             // set the engaged flag to prevent the handle from scrolling again as the OnScrolled event in the ScrollListener is called even for programmatic scrolls
                             isEngaged = true
@@ -346,12 +336,17 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                                 popupTextView.animateVisibility()
                             }
                         }
+
                         //
                         // ------------- Common methods to Move and Down events -------------------
                         // calculate relative Y position internal to the view, from motion absolute px touch value and absolute start point of the view
                         //
+
+                        // subtract the handle height offset
+                        val handleHeightOffset = handleImageView.height / 2
+
                         val currentRelativeYPos =
-                            motionEvent.rawY - yAbsPosition - touchRelativeOffset
+                            motionEvent.rawY - yAbsPosition - handleHeightOffset
 
                         // move the handle only if fastScrolled, else leave the translation of the handle to the onScrolled method on the listener
 
