@@ -1,3 +1,20 @@
+# From v0.1.3:
+
+# Minor Changes
+* Increases the height of first page elements to showcase long items
+
+## Bug Fixes
+* Fixes typo for `position` and `visibility`
+* Fixes issue #14 when item elements are bigger
+
+### Optimizations
+* Optimizes get location in window method to run once.
+* Optimizes the touch relative offsets
+
+#### Updated Dependencies
+* Kotlin version from 1.3.41 to 1.3.72
+* Android gradle plugin
+
 # From v0.1.2:
 
 ## Bug Fixes
