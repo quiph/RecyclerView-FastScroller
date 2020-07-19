@@ -10,7 +10,7 @@
             <enum name="beforeTrack" value="0"/>
             <enum name="afterTrack" value="1"/>
         </attr>
-        <attr name="addLastItemPadding" format="boolean"></attr>
+        <attr name="addLastItemPadding" format="boolean" />
         <attr name="fastScrollDirection" format="enum">
             <enum name="vertical" value="0"/>
             <enum name="horizontal" value="1"/>
