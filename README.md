@@ -1,15 +1,18 @@
 # <img src ="https://upload.wikimedia.org/wikipedia/commons/b/b5/Kotlin-logo.png" width=24> RecyclerViewFastScroller
 
 ![Github release](https://img.shields.io/github/release/quiph/recyclerview-fastscroller.svg)
-![Maven version](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/quiph/ui/recyclerviewfastscroller/maven-metadata.xml.svg) ![Code size](https://img.shields.io/github/languages/code-size/quiph/recyclerview-fastscroller.svg?colorB=4bc51d) [![Android Weekly #317](https://img.shields.io/badge/Android%20Weekly-%23317-1eafe6.svg)](https://androidweekly.net/issues/issue-317) [![Kotlin Weekly #101](https://img.shields.io/badge/Kotlin%20Weekly-%23101-9e5ef2.svg)](https://mailchi.mp/kotlinweekly/kotlin-weekly-100-sytgpg6yuv?e=55ca282aa1)
+![Maven Central](https://img.shields.io/maven-central/v/com.quiph.ui/recyclerviewfastscroller)
+![Code size](https://img.shields.io/github/languages/code-size/quiph/recyclerview-fastscroller.svg?colorB=4bc51d) 
+[![Android Weekly #317](https://img.shields.io/badge/Android%20Weekly-%23317-1eafe6.svg)](https://androidweekly.net/issues/issue-317)
+[![Kotlin Weekly #101](https://img.shields.io/badge/Kotlin%20Weekly-%23101-9e5ef2.svg)](https://mailchi.mp/kotlinweekly/kotlin-weekly-100-sytgpg6yuv?e=55ca282aa1)
 
 A simple, easy to use and configurable fast scroller for `RecyclerView`
 
-<img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_contacts.gif" width=280> <img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_countries.gif" width=280> <img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_numbers.gif" width=280>
+<img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_contacts.gif" width=240> <img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_countries.gif" width=240> <img src = "https://github.com/quiph/RecyclerView-FastScroller/raw/master/graphics/recording_numbers.gif" width=240>
 
 ## Adding the dependency
 ```groovy
-implementation 'com.quiph.ui:recyclerviewfastscroller:0.2.0'
+implementation 'com.quiph.ui:recyclerviewfastscroller:0.2.1'
 ```
 ## Java-only project?
 As Kotlin compiles to Java, there's no need to externally add the Kotlin runtime or any other Kotlin dependencies when using this. Also the library is **100% compatible with Java** and requires **no migration** of the base project to Kotlin. 

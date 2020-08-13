@@ -1,3 +1,14 @@
+# From v0.2.0:
+
+## New Features
+* Adds supports for RTL layouts
+
+## Bug Fixes
+* Fixes popup view for RTL - Suraj Shah
+
+#### Updated Dependencies
+* Upgrades dependencies
+
 # From v0.1.3:
 
 # Minor Changes
