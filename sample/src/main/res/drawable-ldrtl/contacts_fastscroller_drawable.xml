@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<corners android:bottomRightRadius="@dimen/contacts_fastscroller_radius"
+    android:topLeftRadius="@dimen/contacts_fastscroller_radius"
+    android:topRightRadius="@dimen/contacts_fastscroller_radius"/>
+    <solid android:color="@color/colorPrimary" />
+</shape>
