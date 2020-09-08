@@ -9,6 +9,7 @@
         android:id="@+id/trackView"
         android:orientation="horizontal"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_width="wrap_content">
         <ImageView
             android:layout_width="wrap_content"
