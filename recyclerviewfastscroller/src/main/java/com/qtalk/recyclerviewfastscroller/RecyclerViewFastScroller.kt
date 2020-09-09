@@ -402,10 +402,16 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).also {
                 when (popupPosition) {
                     PopupPosition.BEFORE_TRACK -> {
-                        it.addRule(START_OF, trackView.id)
+                        if (Build.VERSION.SDK_INT > 16)
+                            it.addRule(START_OF, trackView.id)
+                        else
+                            it.addRule(LEFT_OF, trackView.id)
                     }
                     PopupPosition.AFTER_TRACK -> {
-                        it.addRule(END_OF, trackView.id)
+                        if (Build.VERSION.SDK_INT > 16)
+                            it.addRule(END_OF, trackView.id)
+                        else
+                            it.addRule(RIGHT_OF, trackView.id)
                     }
                 }
             }
@@ -427,7 +433,12 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                 LayoutParams(
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.MATCH_PARENT
-                ).also { it.addRule(ALIGN_PARENT_END) }
+                ).also {
+                    if (Build.VERSION.SDK_INT > 16)
+                        it.addRule(ALIGN_PARENT_END)
+                    else
+                        it.addRule(ALIGN_PARENT_RIGHT)
+                }
             }
         }
         handleImageView.layoutParams = lp
