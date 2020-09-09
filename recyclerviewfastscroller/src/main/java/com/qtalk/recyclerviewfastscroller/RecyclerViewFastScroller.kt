@@ -717,16 +717,6 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         }
         registerDataObserver()
         recyclerView.addOnScrollListener(onScrollListener)
-
-        // todo@shahsurajk decide fate of this
-        recyclerView.onFlingListener = object : RecyclerView.OnFlingListener() {
-            override fun onFling(velocityX: Int, velocityY: Int): Boolean {
-                // log("onFling-> $velocityY ${recyclerView.minFlingVelocity} ${recyclerView.maxFlingVelocity}")
-                // val recyclerView1 = recyclerView
-                // recyclerView1?.smoothScrollBy(0, recyclerView1.computeVerticalScrollRange()- recyclerView1.computeVerticalScrollExtent())
-                return false
-            }
-        }
     }
 
     /**
@@ -777,8 +767,6 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         handleImageView.setOnTouchListener(null)
         popupTextView.setOnTouchListener(null)
         recyclerView.removeOnScrollListener(onScrollListener)
-        // todo@shahsurajk think on this
-        recyclerView.onFlingListener = null
         if (hasEmptyItemDecorator) {
             recyclerView.removeItemDecoration(emptySpaceItemDecoration)
         }
