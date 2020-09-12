@@ -800,9 +800,9 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                 handleImageView.isEnabled = false
                 return
             }
-
-            val finalOffset: Float = (trackLength - handleLength) * ((offset+extent).toFloat()/range)
-            Log.i("PUPILD", finalOffset.toString())
+            
+            val error = extent.toFloat()*offset/range
+            val finalOffset: Float = (trackLength - handleLength) * ((error+offset)/range)
 
             moveViewByRelativeInBounds(handleImageView, finalOffset)
             moveViewByRelativeInBounds(popupTextView, finalOffset - popupTextView.height.toFloat())
