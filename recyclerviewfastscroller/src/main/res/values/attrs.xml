@@ -20,7 +20,7 @@
         <attr name="handleHasFixedSize" format="boolean"/>
         <attr name="supportSwipeToRefresh" format="boolean"/>
 
-        <attr name="handlePaddingStart" format="dimension"/>
-        <attr name="handlePaddingEnd" format="dimension"/>
+        <attr name="trackMarginStart" format="dimension"/>
+        <attr name="trackMarginEnd" format="dimension"/>
     </declare-styleable>
  </resources>

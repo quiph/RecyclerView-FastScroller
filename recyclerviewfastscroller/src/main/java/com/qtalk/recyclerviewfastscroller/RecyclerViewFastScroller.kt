@@ -181,6 +181,17 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
      **/
     lateinit var popupTextView: TextView
 
+    var trackMarginStart: Int = 0
+        set(value) {
+            field = value
+            setTrackMargin()
+        }
+    var trackMarginEnd: Int = 0
+        set(value) {
+            field = value
+            setTrackMargin()
+        }
+
     // --- internal properties
     private var popupPosition: PopupPosition = Defaults.popupPosition
     private var fastScrollDirection: FastScrollDirection = Defaults.fastScrollDirection
@@ -192,8 +203,6 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private var isEngaged: Boolean = false
     private var handleStateListener: HandleStateListener? = null
     private var previousTotalVisibleItem: Int = 0
-    private var handlePaddingStart: Int = 0
-    private var handlePaddingEnd: Int = 0
 
     private val trackLength: Float
         get() =
@@ -300,6 +309,17 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                     ?: ContextCompat.getDrawable(context, Defaults.handleDrawableInt))
             )
 
+            listOf(
+                    R.styleable.RecyclerViewFastScroller_trackMarginStart,
+                    R.styleable.RecyclerViewFastScroller_trackMarginEnd
+            ).map { style ->
+                attribs.getDimension(style, Defaults.handlePadding.toFloat()).toInt()
+            }.let { margins ->
+                trackMarginStart = margins[0]
+                trackMarginEnd = margins[1]
+            }
+
+            setTrackMargin()
             refreshHandleImageViewSize()
 
             TextViewCompat.setTextAppearance(
@@ -377,9 +397,9 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
 
                         val currentRelativePos = when (fastScrollDirection) {
                             FastScrollDirection.HORIZONTAL ->
-                                motionEvent.rawX - xAbsPosition - handleOffset
+                                motionEvent.rawX - xAbsPosition - handleOffset - trackMarginStart
                             FastScrollDirection.VERTICAL ->
-                                motionEvent.rawY - yAbsPosition - handleOffset
+                                motionEvent.rawY - yAbsPosition - handleOffset - trackMarginStart
                         }
 
                         // move the handle only if fastScrolled, else leave the translation of the handle to the onScrolled method on the listener
@@ -488,29 +508,24 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         trackView.layoutParams = lpTrackLayout
     }
 
+    private fun setTrackMargin() {
+        with (trackView.layoutParams as MarginLayoutParams) {
+            when (fastScrollDirection) {
+                FastScrollDirection.HORIZONTAL ->
+                    if (Build.VERSION.SDK_INT > 16) {
+                        marginStart = trackMarginStart
+                        marginEnd = trackMarginEnd
+                    } else
+                        setMargins(trackMarginStart, 0, trackMarginEnd, 0)
+                FastScrollDirection.VERTICAL ->
+                    setMargins(0, trackMarginStart, 0, trackMarginEnd)
+            }
+        }
+    }
+
     private fun refreshHandleImageViewSize(newComputedSize: Int = -1) {
         // todo@shahsurajk add fork for horizontal layout
         if (newComputedSize == -1) {
-            val (paddingStart, paddingEnd) = listOf(
-                    R.styleable.RecyclerViewFastScroller_handlePaddingStart,
-                    R.styleable.RecyclerViewFastScroller_handlePaddingEnd
-            ).map {
-                attribs?.getDimension(
-                        it,
-                        Defaults.handlePadding.toFloat()
-                )?.toInt() ?: Defaults.handlePadding
-            }
-
-            when (fastScrollDirection) {
-                FastScrollDirection.HORIZONTAL ->
-                    if (Build.VERSION.SDK_INT > 16)
-                        handleImageView.setPaddingRelative(paddingStart, 0, paddingEnd, 0)
-                    else
-                        handleImageView.setPadding(paddingStart, 0, paddingEnd, 0)
-                FastScrollDirection.VERTICAL ->
-                    handleImageView.setPadding(0, paddingStart, 0, paddingEnd)
-            }
-
             handleImageView.layoutParams.width = loadHandleWidth().toInt()
             handleImageView.layoutParams.height = loadHandleHeight().toInt()
         } else {
@@ -548,9 +563,9 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private fun moveViewByRelativeInBounds(view: View, finalOffset: Float) {
         when (fastScrollDirection) {
             FastScrollDirection.HORIZONTAL ->
-                view.x = min(max(finalOffset, 0f), (width.toFloat() - view.width.toFloat()))
+                view.x = min(max(finalOffset, 0F), (trackLength - view.width.toFloat()))
             FastScrollDirection.VERTICAL ->
-                view.y = min(max(finalOffset, 0f), (height.toFloat() - view.height.toFloat()))
+                view.y = min(max(finalOffset, 0F), (trackLength - view.height.toFloat()))
         }
     }
 
@@ -786,7 +801,8 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                 return
             }
 
-            val finalOffset: Float = offset.toFloat() / (range - extent) * (extent - handleLength)
+            val finalOffset: Float = (trackLength - handleLength) * ((offset+extent).toFloat()/range)
+            Log.i("PUPILD", finalOffset.toString())
 
             moveViewByRelativeInBounds(handleImageView, finalOffset)
             moveViewByRelativeInBounds(popupTextView, finalOffset - popupTextView.height.toFloat())
