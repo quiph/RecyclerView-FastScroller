@@ -728,13 +728,17 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             super.onScrolled(recyclerView, dx, dy)
             if (isEngaged && isFastScrollEnabled) return
 
-            val computeVerticalScrollExtent: Float =
-                recyclerView.computeVerticalScrollExtent().toFloat()
-            val computeVerticalScrollRange: Float =
-                recyclerView.computeVerticalScrollRange().toFloat()
+            val (range, extent, offset) =
+                    when ((recyclerView.layoutManager as LinearLayoutManager).orientation) {
+                        RecyclerView.VERTICAL ->
+                            Triple(recyclerView.computeVerticalScrollRange(), recyclerView.computeVerticalScrollExtent(), recyclerView.computeVerticalScrollOffset())
+                        RecyclerView.HORIZONTAL ->
+                            Triple(recyclerView.computeHorizontalScrollRange(), recyclerView.computeHorizontalScrollExtent(), recyclerView.computeHorizontalScrollOffset())
+                        else -> error("The orientation of the LinearLayoutManager should be horizontal or vertical")
+                    }
 
             // check if the layout is scrollable. i.e. range is large than extent, else disable fast scrolling and track touches.
-            if (computeVerticalScrollExtent < computeVerticalScrollRange) {
+            if (extent < range) {
                 handleImageView.animateVisibility()
                 handleImageView.isEnabled = true
                 trackView.isEnabled = true
@@ -745,20 +749,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                 return
             }
 
-            val finalOffset: Float =
-                    when ((recyclerView.layoutManager as LinearLayoutManager).orientation) {
-                        RecyclerView.VERTICAL -> {
-                            val offsetScale = recyclerView.computeVerticalScrollOffset().toFloat() /
-                                (computeVerticalScrollRange - computeVerticalScrollExtent)
-                            offsetScale * (computeVerticalScrollExtent - handleLength)
-                        }
-                        RecyclerView.HORIZONTAL -> {
-                            val offsetScale = recyclerView.computeHorizontalScrollOffset().toFloat() /
-                                    (computeVerticalScrollRange - computeVerticalScrollExtent)
-                            offsetScale * (computeHorizontalScrollExtent() - handleLength)
-                        }
-                        else -> error("The orientation of the LinearLayoutManager should be horizontal or vertical")
-                    }
+            val finalOffset: Float = offset.toFloat() / (range - extent) * (extent - handleLength)
 
             when (fastScrollDirection) {
                 FastScrollDirection.VERTICAL -> {
