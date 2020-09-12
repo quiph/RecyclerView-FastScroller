@@ -472,14 +472,17 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     }
 
     private fun alignTrackAndHandle() {
+        val padding = resources.getDimensionPixelOffset(R.dimen.default_handle_padding)
         when (fastScrollDirection) {
             FastScrollDirection.HORIZONTAL -> {
+                handleImageView.setPadding(0, padding, 0, padding)
                 trackView.layoutParams = LayoutParams(
                         LayoutParams.MATCH_PARENT,
                         LayoutParams.WRAP_CONTENT
                     ).also { it.addRule(ALIGN_PARENT_BOTTOM) }
             }
             FastScrollDirection.VERTICAL -> {
+                handleImageView.setPadding(padding, 0, padding, 0)
                 trackView.layoutParams = LayoutParams(
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.MATCH_PARENT
