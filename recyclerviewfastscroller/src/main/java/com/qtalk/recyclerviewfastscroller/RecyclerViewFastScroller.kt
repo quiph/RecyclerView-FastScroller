@@ -638,38 +638,29 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         val layoutManager: RecyclerView.LayoutManager? = this.layoutManager
         val recyclerViewItemCount = this.adapter?.itemCount ?: 0
 
-        val extent = when (fastScrollDirection) {
-            FastScrollDirection.HORIZONTAL -> this.computeHorizontalScrollExtent()
-            FastScrollDirection.VERTICAL -> this.computeVerticalScrollExtent()
+        val extent = when ((layoutManager as LinearLayoutManager).orientation) {
+            RecyclerView.HORIZONTAL -> this.computeHorizontalScrollExtent()
+            RecyclerView.VERTICAL -> this.computeVerticalScrollExtent()
+            else -> error("The orientation of the LinearLayoutManager should be horizontal or vertical")
         }.toFloat()
 
         val newOffset = relativeRawPos / (extent - handleLength)
-        return when (layoutManager) {
-            is LinearLayoutManager -> {
-                val totalVisibleItems = layoutManager.getTotalCompletelyVisibleItemCount()
+        val totalVisibleItems = layoutManager.getTotalCompletelyVisibleItemCount()
 
-                if (totalVisibleItems == RecyclerView.NO_POSITION) return RecyclerView.NO_POSITION
+        if (totalVisibleItems == RecyclerView.NO_POSITION) return RecyclerView.NO_POSITION
 
-                // the last item would have one less visible item, this is to offset it.
-                previousTotalVisibleItem = max(previousTotalVisibleItem, totalVisibleItems)
-                // check bounds and then set position
-                val position = min(
-                    recyclerViewItemCount,
-                    max(0, (newOffset * (recyclerViewItemCount - totalVisibleItems)).roundToInt())
-                )
+        // the last item would have one less visible item, this is to offset it.
+        previousTotalVisibleItem = max(previousTotalVisibleItem, totalVisibleItems)
+        // check bounds and then set position
+        val position = min(
+            recyclerViewItemCount,
+            max(0, (newOffset * (recyclerViewItemCount - totalVisibleItems)).roundToInt())
+        )
 
-                val toScrollPosition =
-                    min((this.adapter?.itemCount ?: 0) - (previousTotalVisibleItem + 1), position)
-                safeScrollToPosition(toScrollPosition)
-                position
-            }
-            else -> {
-
-                val position = (newOffset * recyclerViewItemCount).roundToInt()
-                safeScrollToPosition(position)
-                position
-            }
-        }
+        val toScrollPosition =
+            min((this.adapter?.itemCount ?: 0) - (previousTotalVisibleItem + 1), position)
+        safeScrollToPosition(toScrollPosition)
+        return position
     }
 
     /**
