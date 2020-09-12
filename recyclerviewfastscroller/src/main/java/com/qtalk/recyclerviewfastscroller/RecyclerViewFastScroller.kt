@@ -373,10 +373,10 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                         val handleOffset = handleLength / 2
 
                         val currentRelativePos = when (fastScrollDirection) {
-                            FastScrollDirection.VERTICAL ->
-                                motionEvent.rawY - yAbsPosition - handleOffset
                             FastScrollDirection.HORIZONTAL ->
                                 motionEvent.rawX - xAbsPosition - handleOffset
+                            FastScrollDirection.VERTICAL ->
+                                motionEvent.rawY - yAbsPosition - handleOffset
                         }
 
                         // move the handle only if fastScrolled, else leave the translation of the handle to the onScrolled method on the listener
