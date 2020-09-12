@@ -637,8 +637,13 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private fun RecyclerView.computePositionForOffsetAndScroll(relativeRawPos: Float): Int {
         val layoutManager: RecyclerView.LayoutManager? = this.layoutManager
         val recyclerViewItemCount = this.adapter?.itemCount ?: 0
-        val newOffset = relativeRawPos / ((this.computeVerticalScrollExtent()
-            .toFloat()) - handleImageView.height.toFloat())
+
+        val extent = when (fastScrollDirection) {
+            FastScrollDirection.HORIZONTAL -> this.computeHorizontalScrollExtent()
+            FastScrollDirection.VERTICAL -> this.computeVerticalScrollExtent()
+        }.toFloat()
+
+        val newOffset = relativeRawPos / (extent - handleLength)
         return when (layoutManager) {
             is LinearLayoutManager -> {
                 val totalVisibleItems = layoutManager.getTotalCompletelyVisibleItemCount()
