@@ -358,7 +358,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             val locationArray = IntArray(2)
 
             // getting the position of this view on the screen, getting absolute X and Y coordinates
-            getLocationInWindow(locationArray)
+            trackView.getLocationInWindow(locationArray)
             val (xAbsPosition, yAbsPosition) = Pair(locationArray[0], locationArray[1])
 
             val touchListener = OnTouchListener { _, motionEvent ->
@@ -397,9 +397,9 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
 
                         val currentRelativePos = when (fastScrollDirection) {
                             FastScrollDirection.HORIZONTAL ->
-                                motionEvent.rawX - xAbsPosition - handleOffset - trackMarginStart
+                                motionEvent.rawX - xAbsPosition - handleOffset
                             FastScrollDirection.VERTICAL ->
-                                motionEvent.rawY - yAbsPosition - handleOffset - trackMarginStart
+                                motionEvent.rawY - yAbsPosition - handleOffset
                         }
 
                         // move the handle only if fastScrolled, else leave the translation of the handle to the onScrolled method on the listener
