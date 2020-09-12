@@ -26,11 +26,8 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.view.View.OnTouchListener
-import android.view.ViewPropertyAnimator
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -186,6 +183,18 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             alignTrackAndHandle()
         }
 
+    var handleWidth: Int = LayoutParams.WRAP_CONTENT
+        set(value) {
+            field = value
+            refreshHandleImageViewSize()
+        }
+    var handleHeight: Int = LayoutParams.WRAP_CONTENT
+        set(value) {
+            field = value
+            refreshHandleImageViewSize()
+        }
+
+
     // --- internal properties
     private var popupPosition: PopupPosition = Defaults.popupPosition
     private var hasEmptyItemDecorator: Boolean = Defaults.hasEmptyItemDecorator
@@ -297,12 +306,12 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                 }
 
             // set default handleImageView drawable if not defined
-            handleImageView.setImageDrawable(
-                (loadDrawableFromAttributes(R.styleable.RecyclerViewFastScroller_handleDrawable)
+            handleDrawable = (loadDrawableFromAttributes(R.styleable.RecyclerViewFastScroller_handleDrawable)
                     ?: ContextCompat.getDrawable(context, Defaults.handleDrawableInt))
-            )
-
-            refreshHandleImageViewSize()
+            handleHeight =
+                    attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_handleHeight, loadDimenFromResource(Defaults.handleSize))
+            handleWidth =
+                    attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_handleWidth, loadDimenFromResource(Defaults.handleSize))
 
             TextViewCompat.setTextAppearance(
                 popupTextView,
@@ -464,18 +473,15 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     }
 
     private fun alignTrackAndHandle() {
-        val lp = LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-        val lpTrackLayout: LayoutParams = when (fastScrollDirection) {
+        when (fastScrollDirection) {
             FastScrollDirection.HORIZONTAL -> {
-                lp.gravity = Gravity.END
-                LayoutParams(
-                    LayoutParams.MATCH_PARENT,
-                    LayoutParams.WRAP_CONTENT
-                ).also { it.addRule(ALIGN_PARENT_BOTTOM) }
+                trackView.layoutParams = LayoutParams(
+                        LayoutParams.MATCH_PARENT,
+                        LayoutParams.WRAP_CONTENT
+                    ).also { it.addRule(ALIGN_PARENT_BOTTOM) }
             }
             FastScrollDirection.VERTICAL -> {
-                lp.gravity = Gravity.TOP
-                LayoutParams(
+                trackView.layoutParams = LayoutParams(
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.MATCH_PARENT
                 ).also {
@@ -486,15 +492,22 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                 }
             }
         }
-        handleImageView.layoutParams = lp
-        trackView.layoutParams = lpTrackLayout
+        post {
+            when (fastScrollDirection) {
+                FastScrollDirection.HORIZONTAL ->
+                    handleImageView.y = 0F
+                FastScrollDirection.VERTICAL ->
+                    handleImageView.x = 0F
+            }
+
+            onScrollListener.onScrolled(recyclerView, 0, 0)
+        }
     }
 
     private fun refreshHandleImageViewSize(newComputedSize: Int = -1) {
         // todo@shahsurajk add fork for horizontal layout
         if (newComputedSize == -1) {
-            handleImageView.layoutParams.width = loadHandleWidth().toInt()
-            handleImageView.layoutParams.height = loadHandleHeight().toInt()
+            handleImageView.layoutParams = LinearLayout.LayoutParams(handleWidth, handleHeight)
         } else {
             TODO("@shahsurajk dynamic sizing of handle")
         }
@@ -575,22 +588,8 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     }
 
     // set of load methods for handy loading from attribs
-    private fun loadDimenFromResource(@DimenRes dimenSize: Int): Float =
-        context.resources.getDimension(dimenSize)
-
-    private fun loadHandleHeight() =
-        attribs?.getDimension(
-            R.styleable.RecyclerViewFastScroller_handleHeight,
-            loadDimenFromResource(Defaults.handleSize)
-        )
-            ?: loadDimenFromResource(Defaults.handleSize)
-
-    private fun loadHandleWidth() =
-        attribs?.getDimension(
-            R.styleable.RecyclerViewFastScroller_handleWidth,
-            loadDimenFromResource(Defaults.handleSize)
-        )
-            ?: loadDimenFromResource(Defaults.handleSize)
+    private fun loadDimenFromResource(@DimenRes dimenSize: Int): Int =
+        context.resources.getDimensionPixelSize(dimenSize)
 
     private fun loadDrawableFromAttributes(@StyleableRes styleId: Int) = attribs?.getDrawable(styleId)
 
