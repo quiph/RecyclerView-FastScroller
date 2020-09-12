@@ -204,14 +204,20 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private val handleLength: Float
         get() =
             when (fastScrollDirection) {
-                FastScrollDirection.VERTICAL ->
-                    handleImageView.height
                 FastScrollDirection.HORIZONTAL ->
                     handleImageView.width
+                FastScrollDirection.VERTICAL ->
+                    handleImageView.height
             }.toFloat()
 
-    private val handlePosition: Float
-        get() = 0F
+    private val popupLength: Float
+        get() =
+            when (fastScrollDirection) {
+                FastScrollDirection.HORIZONTAL ->
+                    popupTextView.width
+                FastScrollDirection.VERTICAL ->
+                    popupTextView.height
+            }.toFloat()
 
     // property check
     /**
@@ -330,7 +336,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
 
             // getting the position of this view on the screen, getting absolute X and Y coordinates
             getLocationInWindow(locationArray)
-            val yAbsPosition: Int = locationArray[1]
+            val (xAbsPosition, yAbsPosition) = Pair(locationArray[0], locationArray[1])
 
             val touchListener = OnTouchListener { _, motionEvent ->
 
@@ -364,23 +370,31 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                         //
 
                         // subtract the handle height offset
-                        val handleHeightOffset = handleImageView.height / 2
+                        val handleOffset = handleLength / 2
 
-                        val currentRelativeYPos =
-                            motionEvent.rawY - yAbsPosition - handleHeightOffset
+                        val currentRelativePos = when (fastScrollDirection) {
+                            FastScrollDirection.VERTICAL ->
+                                motionEvent.rawY - yAbsPosition - handleOffset
+                            FastScrollDirection.HORIZONTAL ->
+                                motionEvent.rawX - xAbsPosition - handleOffset
+                        }
 
                         // move the handle only if fastScrolled, else leave the translation of the handle to the onScrolled method on the listener
 
                         if (isFastScrollEnabled) {
-                            moveViewByRelativeYInBounds(handleImageView, currentRelativeYPos)
-                            moveViewByRelativeYInBounds(
+                            moveViewByRelativeInBounds(handleImageView, currentRelativePos)
+                            moveViewByRelativeInBounds(
                                 popupTextView,
-                                currentRelativeYPos - popupTextView.height
+                                currentRelativePos - popupLength
                             )
                             val position =
-                                recyclerView.computePositionForOffsetAndScroll(currentRelativeYPos)
+                                recyclerView.computePositionForOffsetAndScroll(currentRelativePos)
                             if (motionEvent.action == MotionEvent.ACTION_MOVE) {
-                                handleStateListener?.onDragged(handleImageView.y, position)
+                                handleStateListener?.onDragged(
+                                    when (fastScrollDirection) {
+                                        FastScrollDirection.HORIZONTAL -> handleImageView.x
+                                        FastScrollDirection.VERTICAL -> handleImageView.y
+                                    }, position)
                             }
                             updateTextInPopup(
                                 min(
@@ -389,7 +403,12 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                                 )
                             )
                         } else {
-                            recyclerView.scrollBy(0, currentRelativeYPos.toInt())
+                            when (fastScrollDirection) {
+                                FastScrollDirection.HORIZONTAL ->
+                                    recyclerView.scrollBy(currentRelativePos.toInt(), 0)
+                                FastScrollDirection.VERTICAL ->
+                                    recyclerView.scrollBy(0, currentRelativePos.toInt())
+                            }
                         }
 
                         true
@@ -503,18 +522,13 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
      * @param view the view to move and
      * @param finalOffset the offset to move to
      * */
-    private fun moveViewByRelativeXInBounds(view: View, finalOffset: Float) {
-        view.x = min(max(finalOffset, 0f), (width.toFloat() - view.width.toFloat()))
-    }
-
-    /**
-     * Checks the bounds of the view before moving
-     *
-     * @param view the view to move and
-     * @param finalOffset the offset to move to
-     * */
-    private fun moveViewByRelativeYInBounds(view: View, finalOffset: Float) {
-        view.y = min(max(finalOffset, 0f), (height.toFloat() - view.height.toFloat()))
+    private fun moveViewByRelativeInBounds(view: View, finalOffset: Float) {
+        when (fastScrollDirection) {
+            FastScrollDirection.HORIZONTAL ->
+                view.x = min(max(finalOffset, 0f), (width.toFloat() - view.width.toFloat()))
+            FastScrollDirection.VERTICAL ->
+                view.y = min(max(finalOffset, 0f), (height.toFloat() - view.height.toFloat()))
+        }
     }
 
     /**
@@ -730,10 +744,10 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
 
             val (range, extent, offset) =
                     when ((recyclerView.layoutManager as LinearLayoutManager).orientation) {
-                        RecyclerView.VERTICAL ->
-                            Triple(recyclerView.computeVerticalScrollRange(), recyclerView.computeVerticalScrollExtent(), recyclerView.computeVerticalScrollOffset())
                         RecyclerView.HORIZONTAL ->
                             Triple(recyclerView.computeHorizontalScrollRange(), recyclerView.computeHorizontalScrollExtent(), recyclerView.computeHorizontalScrollOffset())
+                        RecyclerView.VERTICAL ->
+                            Triple(recyclerView.computeVerticalScrollRange(), recyclerView.computeVerticalScrollExtent(), recyclerView.computeVerticalScrollOffset())
                         else -> error("The orientation of the LinearLayoutManager should be horizontal or vertical")
                     }
 
@@ -751,16 +765,8 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
 
             val finalOffset: Float = offset.toFloat() / (range - extent) * (extent - handleLength)
 
-            when (fastScrollDirection) {
-                FastScrollDirection.VERTICAL -> {
-                    moveViewByRelativeYInBounds(handleImageView, finalOffset)
-                    moveViewByRelativeYInBounds(popupTextView, finalOffset - popupTextView.height.toFloat())
-                }
-                FastScrollDirection.HORIZONTAL -> {
-                    moveViewByRelativeXInBounds(handleImageView, finalOffset)
-                    moveViewByRelativeXInBounds(popupTextView, finalOffset - popupTextView.width.toFloat())
-                }
-            }
+            moveViewByRelativeInBounds(handleImageView, finalOffset)
+            moveViewByRelativeInBounds(popupTextView, finalOffset - popupTextView.height.toFloat())
         }
     }
 
