@@ -127,7 +127,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         internal const val DEFAULT_ANIM_DURATION: Long = 100
         internal const val DEFAULT_POPUP_VISIBILITY_DURATION = 200L
         internal const val hasEmptyItemDecorator: Boolean = true
-        internal const val handlePadding: Int = 0
+        internal const val trackMargin: Int = 0
     }
 
     /**
@@ -309,17 +309,11 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                     ?: ContextCompat.getDrawable(context, Defaults.handleDrawableInt))
             )
 
-            listOf(
-                    R.styleable.RecyclerViewFastScroller_trackMarginStart,
-                    R.styleable.RecyclerViewFastScroller_trackMarginEnd
-            ).map { style ->
-                attribs.getDimension(style, Defaults.handlePadding.toFloat()).toInt()
-            }.let { margins ->
-                trackMarginStart = margins[0]
-                trackMarginEnd = margins[1]
-            }
+            trackMarginStart =
+                    attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_trackMarginStart, Defaults.trackMargin)
+            trackMarginEnd =
+                    attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_trackMarginEnd, Defaults.trackMargin)
 
-            setTrackMargin()
             refreshHandleImageViewSize()
 
             TextViewCompat.setTextAppearance(
