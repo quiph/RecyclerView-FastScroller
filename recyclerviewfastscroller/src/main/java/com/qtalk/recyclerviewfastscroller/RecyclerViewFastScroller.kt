@@ -346,12 +346,6 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             }
         }
         post {
-            val locationArray = IntArray(2)
-
-            // getting the position of this view on the screen, getting absolute X and Y coordinates
-            getLocationInWindow(locationArray)
-            val (xAbsPosition, yAbsPosition) = Pair(locationArray[0], locationArray[1])
-
             val touchListener = OnTouchListener { _, motionEvent ->
                 val locationArray = IntArray(2)
 
