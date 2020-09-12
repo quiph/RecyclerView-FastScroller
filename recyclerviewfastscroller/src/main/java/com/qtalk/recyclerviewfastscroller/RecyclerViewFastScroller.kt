@@ -666,10 +666,17 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                 // the last item would have one less visible item, this is to offset it.
                 previousTotalVisibleItem = max(previousTotalVisibleItem, totalVisibleItems)
                 // check bounds and then set position
-                val position = min(
-                        recyclerViewItemCount,
-                        max(0, (newOffset * (recyclerViewItemCount - totalVisibleItems)).roundToInt())
-                )
+                val position =
+                    if (layoutManager.reverseLayout)
+                        min(
+                            recyclerViewItemCount,
+                            max(0, recyclerViewItemCount-(newOffset * (recyclerViewItemCount - totalVisibleItems)).roundToInt())
+                        )
+                    else
+                        min(
+                            recyclerViewItemCount,
+                            max(0, (newOffset * (recyclerViewItemCount - totalVisibleItems)).roundToInt())
+                        )
 
                 val toScrollPosition =
                         min((this.adapter?.itemCount ?: 0) - (previousTotalVisibleItem + 1), position)
