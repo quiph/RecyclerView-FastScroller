@@ -472,16 +472,28 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).also {
                 when (popupPosition) {
                     PopupPosition.BEFORE_TRACK -> {
-                        if (Build.VERSION.SDK_INT > 16)
-                            it.addRule(START_OF, trackView.id)
-                        else
-                            it.addRule(LEFT_OF, trackView.id)
+                        when (fastScrollDirection) {
+                            FastScrollDirection.HORIZONTAL ->
+                                it.addRule(ABOVE, trackView.id)
+                            FastScrollDirection.VERTICAL -> {
+                                if (Build.VERSION.SDK_INT > 16)
+                                    it.addRule(START_OF, trackView.id)
+                                else
+                                    it.addRule(LEFT_OF, trackView.id)
+                            }
+                        }
                     }
                     PopupPosition.AFTER_TRACK -> {
-                        if (Build.VERSION.SDK_INT > 16)
-                            it.addRule(END_OF, trackView.id)
-                        else
-                            it.addRule(RIGHT_OF, trackView.id)
+                        when (fastScrollDirection) {
+                            FastScrollDirection.HORIZONTAL ->
+                                it.addRule(BELOW, trackView.id)
+                            FastScrollDirection.VERTICAL -> {
+                                if (Build.VERSION.SDK_INT > 16)
+                                    it.addRule(END_OF, trackView.id)
+                                else
+                                    it.addRule(RIGHT_OF, trackView.id)
+                            }
+                        }
                     }
                 }
             }
@@ -686,10 +698,17 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                 // the last item would have one less visible item, this is to offset it.
                 previousTotalVisibleItem = max(previousTotalVisibleItem, totalVisibleItems)
                 // check bounds and then set position
-                val position = min(
-                        recyclerViewItemCount,
-                        max(0, (newOffset * (recyclerViewItemCount - totalVisibleItems)).roundToInt())
-                )
+                val position =
+                    if (layoutManager.reverseLayout)
+                        min(
+                            recyclerViewItemCount,
+                            max(0, recyclerViewItemCount-(newOffset * (recyclerViewItemCount - totalVisibleItems)).roundToInt())
+                        )
+                    else
+                        min(
+                            recyclerViewItemCount,
+                            max(0, (newOffset * (recyclerViewItemCount - totalVisibleItems)).roundToInt())
+                        )
 
                 val toScrollPosition =
                         min((this.adapter?.itemCount ?: 0) - (previousTotalVisibleItem + 1), position)
@@ -697,7 +716,6 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                 position
             }
             else -> {
-
                 val position = (newOffset * recyclerViewItemCount).roundToInt()
                 safeScrollToPosition(position)
                 position
@@ -805,7 +823,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             val finalOffset: Float = (trackLength - handleLength) * ((error+offset)/range)
 
             moveViewByRelativeInBounds(handleImageView, finalOffset)
-            moveViewByRelativeInBounds(popupTextView, finalOffset - popupTextView.height.toFloat())
+            moveViewByRelativeInBounds(popupTextView, finalOffset - popupLength)
         }
     }
 
