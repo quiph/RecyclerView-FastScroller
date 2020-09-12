@@ -403,10 +403,10 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                                 )
                             )
                         } else {
-                            when (fastScrollDirection) {
-                                FastScrollDirection.HORIZONTAL ->
+                            when ((recyclerView.layoutManager as LinearLayoutManager).orientation) {
+                                RecyclerView.HORIZONTAL ->
                                     recyclerView.scrollBy(currentRelativePos.toInt(), 0)
-                                FastScrollDirection.VERTICAL ->
+                                RecyclerView.VERTICAL ->
                                     recyclerView.scrollBy(0, currentRelativePos.toInt())
                             }
                         }
