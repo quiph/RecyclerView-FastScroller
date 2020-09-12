@@ -127,6 +127,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         internal const val DEFAULT_ANIM_DURATION: Long = 100
         internal const val DEFAULT_POPUP_VISIBILITY_DURATION = 200L
         internal const val hasEmptyItemDecorator: Boolean = true
+        internal const val handlePadding: Int = 0
     }
 
     /**
@@ -191,6 +192,8 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private var isEngaged: Boolean = false
     private var handleStateListener: HandleStateListener? = null
     private var previousTotalVisibleItem: Int = 0
+    private var handlePaddingStart: Int = 0
+    private var handlePaddingEnd: Int = 0
 
     // property check
     /**
@@ -448,6 +451,26 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private fun refreshHandleImageViewSize(newComputedSize: Int = -1) {
         // todo@shahsurajk add fork for horizontal layout
         if (newComputedSize == -1) {
+            val (paddingStart, paddingEnd) = listOf(
+                    R.styleable.RecyclerViewFastScroller_handlePaddingStart,
+                    R.styleable.RecyclerViewFastScroller_handlePaddingEnd
+            ).map {
+                attribs?.getDimension(
+                        it,
+                        Defaults.handlePadding.toFloat()
+                )?.toInt() ?: Defaults.handlePadding
+            }
+
+            when (fastScrollDirection) {
+                FastScrollDirection.HORIZONTAL ->
+                    if (Build.VERSION.SDK_INT > 16)
+                        handleImageView.setPaddingRelative(paddingStart, 0, paddingEnd, 0)
+                    else
+                        handleImageView.setPadding(paddingStart, 0, paddingEnd, 0)
+                FastScrollDirection.VERTICAL ->
+                    handleImageView.setPadding(0, paddingStart, 0, paddingEnd)
+            }
+
             handleImageView.layoutParams.width = loadHandleWidth().toInt()
             handleImageView.layoutParams.height = loadHandleHeight().toInt()
         } else {

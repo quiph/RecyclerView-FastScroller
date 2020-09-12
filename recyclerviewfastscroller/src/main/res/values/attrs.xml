@@ -19,5 +19,8 @@
         <attr name="handleHeight" format="dimension"/>
         <attr name="handleHasFixedSize" format="boolean"/>
         <attr name="supportSwipeToRefresh" format="boolean"/>
+
+        <attr name="handlePaddingStart" format="dimension"/>
+        <attr name="handlePaddingEnd" format="dimension"/>
     </declare-styleable>
  </resources>
