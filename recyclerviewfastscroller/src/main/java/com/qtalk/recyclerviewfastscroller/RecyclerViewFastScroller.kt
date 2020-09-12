@@ -87,7 +87,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             "The RecyclerView required for initialization with FastScroller cannot be null"
     }
 
-    private enum class FastScrollDirection(val value: Int) {
+    enum class FastScrollDirection(val value: Int) {
         HORIZONTAL(1), VERTICAL(0);
 
         companion object {
@@ -180,9 +180,14 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
      **/
     lateinit var popupTextView: TextView
 
+    var fastScrollDirection: FastScrollDirection = Defaults.fastScrollDirection
+        set(value) {
+            field = value
+            alignTrackAndHandle()
+        }
+
     // --- internal properties
     private var popupPosition: PopupPosition = Defaults.popupPosition
-    private var fastScrollDirection: FastScrollDirection = Defaults.fastScrollDirection
     private var hasEmptyItemDecorator: Boolean = Defaults.hasEmptyItemDecorator
     private lateinit var handleImageView: AppCompatImageView
     private lateinit var trackView: LinearLayout
