@@ -183,6 +183,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             field = value
             setTrackMargin()
         }
+
     var trackMarginEnd: Int = 0
         set(value) {
             field = value
@@ -320,15 +321,15 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             handleDrawable = (loadDrawableFromAttributes(R.styleable.RecyclerViewFastScroller_handleDrawable)
                     ?: ContextCompat.getDrawable(context, Defaults.handleDrawableInt))
 
-            trackMarginStart =
-                    attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_trackMarginStart, Defaults.trackMargin)
-            trackMarginEnd =
-                    attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_trackMarginEnd, Defaults.trackMargin)
-
             handleHeight =
                     attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_handleHeight, loadDimenFromResource(Defaults.handleSize))
             handleWidth =
                     attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_handleWidth, loadDimenFromResource(Defaults.handleSize))
+
+            trackMarginStart =
+                    attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_trackMarginStart, Defaults.trackMargin)
+            trackMarginEnd =
+                    attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_trackMarginEnd, Defaults.trackMargin)
 
             TextViewCompat.setTextAppearance(
                 popupTextView,
