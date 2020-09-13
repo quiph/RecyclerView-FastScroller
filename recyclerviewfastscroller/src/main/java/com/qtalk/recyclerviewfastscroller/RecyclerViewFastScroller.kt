@@ -26,8 +26,10 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
-import android.view.*
+import android.view.MotionEvent
+import android.view.View
 import android.view.View.OnTouchListener
+import android.view.ViewPropertyAnimator
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -40,6 +42,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
+import kotlin.concurrent.schedule
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -125,6 +129,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         internal const val DEFAULT_POPUP_VISIBILITY_DURATION = 200L
         internal const val hasEmptyItemDecorator: Boolean = true
         internal const val trackMargin: Int = 0
+        internal const val hideHandleAfter: Int = 0
     }
 
     /**
@@ -207,6 +212,8 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             refreshHandleImageViewSize()
         }
 
+    var hideHandleAfter: Int = 0
+
     // --- internal properties
     private var popupPosition: PopupPosition = Defaults.popupPosition
     private var hasEmptyItemDecorator: Boolean = Defaults.hasEmptyItemDecorator
@@ -217,6 +224,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private var isEngaged: Boolean = false
     private var handleStateListener: HandleStateListener? = null
     private var previousTotalVisibleItem: Int = 0
+    private var hideHandleTimerTask: TimerTask? = null
 
     private val trackLength: Float
         get() =
@@ -321,6 +329,9 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             handleDrawable = (loadDrawableFromAttributes(R.styleable.RecyclerViewFastScroller_handleDrawable)
                     ?: ContextCompat.getDrawable(context, Defaults.handleDrawableInt))
 
+            hideHandleAfter =
+                    attribs.getInt(R.styleable.RecyclerViewFastScroller_hideHandleAfter, Defaults.hideHandleAfter)
+
             handleHeight =
                     attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_handleHeight, loadDimenFromResource(Defaults.handleSize))
             handleWidth =
@@ -413,11 +424,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                         // move the handle only if fastScrolled, else leave the translation of the handle to the onScrolled method on the listener
 
                         if (isFastScrollEnabled) {
-                            moveViewByRelativeInBounds(handleImageView, currentRelativePos)
-                            moveViewByRelativeInBounds(
-                                popupTextView,
-                                currentRelativePos - popupLength
-                            )
+                            moveHandle(currentRelativePos)
                             val position =
                                 recyclerView.computePositionForOffsetAndScroll(currentRelativePos)
                             if (motionEvent.action == MotionEvent.ACTION_MOVE) {
@@ -579,6 +586,27 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             isNestedScrollingEnabled = true
         }
+    }
+
+    private fun moveHandle(offset: Float) {
+        post {
+            // animateVisibility() without animation
+            handleImageView.scaleX = 1F
+            handleImageView.scaleY = 1F
+        }
+
+        if (hideHandleAfter > 0) {
+            hideHandleTimerTask?.cancel()
+
+            hideHandleTimerTask = Timer().schedule(delay = hideHandleAfter.toLong()) {
+                post {
+                    handleImageView.animateVisibility(false)
+                }
+            }
+        }
+
+        moveViewByRelativeInBounds(handleImageView, offset)
+        moveViewByRelativeInBounds(popupTextView, offset - popupLength)
     }
 
     /**
@@ -823,8 +851,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             val error = extent.toFloat()*offset/range
             val finalOffset: Float = (trackLength - handleLength) * ((error+offset)/range)
 
-            moveViewByRelativeInBounds(handleImageView, finalOffset)
-            moveViewByRelativeInBounds(popupTextView, finalOffset - popupLength)
+            moveHandle(finalOffset)
         }
     }
 

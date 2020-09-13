@@ -22,5 +22,7 @@
 
         <attr name="trackMarginStart" format="dimension"/>
         <attr name="trackMarginEnd" format="dimension"/>
+
+        <attr name="hideHandleAfter" format="integer"/>
     </declare-styleable>
  </resources>
