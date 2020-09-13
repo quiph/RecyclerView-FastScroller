@@ -125,6 +125,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         internal const val DEFAULT_POPUP_VISIBILITY_DURATION = 200L
         internal const val hasEmptyItemDecorator: Boolean = true
         internal const val trackMargin: Int = 0
+        internal const val disableTrack = false
     }
 
     /**
@@ -206,6 +207,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             field = value
             refreshHandleImageViewSize()
         }
+    var disableTrack: Boolean = Defaults.disableTrack
 
     // --- internal properties
     private var popupPosition: PopupPosition = Defaults.popupPosition
@@ -331,6 +333,9 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             trackMarginEnd =
                     attribs.getDimensionPixelSize(R.styleable.RecyclerViewFastScroller_trackMarginEnd, Defaults.trackMargin)
 
+            disableTrack =
+                    attribs.getBoolean(R.styleable.RecyclerViewFastScroller_disableTrack, Defaults.disableTrack)
+
             TextViewCompat.setTextAppearance(
                 popupTextView,
                 attribs.getResourceId(
@@ -376,6 +381,23 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
 
                 when (touchAction) {
                     MotionEvent.ACTION_MOVE, MotionEvent.ACTION_DOWN -> {
+                        val handlePosition = IntArray(2).also {
+                            handleImageView.getLocationOnScreen(it)
+                        }
+                        if (disableTrack) {
+                            when (fastScrollDirection) {
+                                FastScrollDirection.HORIZONTAL -> {
+                                    val handleRange = handlePosition[0].toFloat() .. handlePosition[0]+handleLength
+                                    if (!handleRange.contains(motionEvent.rawX))
+                                        return@OnTouchListener false
+                                }
+                                FastScrollDirection.VERTICAL -> {
+                                    val handleRange = handlePosition[1].toFloat() .. handlePosition[1]+handleLength
+                                    if (!handleRange.contains(motionEvent.rawY))
+                                        return@OnTouchListener false
+                                }
+                            }
+                        }
 
                         // disallow parent to spy on touch events
                         requestDisallowInterceptTouchEvent(true)
