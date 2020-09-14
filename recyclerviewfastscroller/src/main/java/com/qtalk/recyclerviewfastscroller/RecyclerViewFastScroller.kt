@@ -113,17 +113,17 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
 
     // defaults to be used throughout this class. All these values can be overriden in the individual methods provided for the main class
     private object Defaults {
-        internal val popupDrawableInt: Int = R.drawable.custom_bg_primary
-        internal val handleDrawableInt: Int = R.drawable.custom_bg_primary
-        internal val handleSize: Int = R.dimen.default_handle_size
-        internal val textStyle: Int = R.style.FastScrollerTextAppearance
-        internal val popupPosition: PopupPosition = PopupPosition.BEFORE_TRACK
-        internal val fastScrollDirection: FastScrollDirection = FastScrollDirection.VERTICAL
-        internal const val isFixedSizeHandle: Boolean = false
-        internal const val isFastScrollEnabled: Boolean = true
-        internal const val DEFAULT_ANIM_DURATION: Long = 100
-        internal const val DEFAULT_POPUP_VISIBILITY_DURATION = 200L
-        internal const val hasEmptyItemDecorator: Boolean = true
+        val popupDrawableInt: Int = R.drawable.custom_bg_primary
+        val handleDrawableInt: Int = R.drawable.custom_bg_primary
+        val handleSize: Int = R.dimen.default_handle_size
+        val textStyle: Int = R.style.FastScrollerTextAppearance
+        val popupPosition: PopupPosition = PopupPosition.BEFORE_TRACK
+        val fastScrollDirection: FastScrollDirection = FastScrollDirection.VERTICAL
+        const val isFixedSizeHandle: Boolean = false
+        const val isFastScrollEnabled: Boolean = true
+        const val DEFAULT_ANIM_DURATION: Long = 100
+        const val DEFAULT_POPUP_VISIBILITY_DURATION = 200L
+        const val hasEmptyItemDecorator: Boolean = true
     }
 
     /**
