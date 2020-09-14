@@ -37,7 +37,7 @@ class BasicFragment : Fragment(){
             with(this.swipe_refresh_layout){
                 swipeRefreshLayout = this
                 setOnRefreshListener {
-                    swipeJob = CoroutineScope(Dispatchers.Default).launch {
+                    swipeJob = CoroutineScope(Dispatchers.Main).launch {
                         delay(3000)
 
                         if (swipeRefreshLayout?.isRefreshing == true)
