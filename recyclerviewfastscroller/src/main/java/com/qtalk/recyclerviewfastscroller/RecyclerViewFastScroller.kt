@@ -741,7 +741,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                 adapter.onUpdate(position, popupTextView)
             }
             else -> {
-                throw IllegalAccessException("Should implement the OnPopupTextUpdate or OnPopupViewUpdate interface")
+                popupTextView.visibility = View.GONE
             }
         }
     }
