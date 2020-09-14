@@ -42,8 +42,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.util.*
-import kotlin.concurrent.schedule
+import kotlinx.coroutines.*
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -224,7 +223,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private var isEngaged: Boolean = false
     private var handleStateListener: HandleStateListener? = null
     private var previousTotalVisibleItem: Int = 0
-    private var hideHandleTimerTask: TimerTask? = null
+    private var hideHandleJob: Job? = null
 
     private val trackLength: Float
         get() =
@@ -596,12 +595,11 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         }
 
         if (hideHandleAfter > 0) {
-            hideHandleTimerTask?.cancel()
+            hideHandleJob?.cancel()
 
-            hideHandleTimerTask = Timer().schedule(delay = hideHandleAfter.toLong()) {
-                post {
-                    handleImageView.animateVisibility(false)
-                }
+            hideHandleJob = CoroutineScope(Dispatchers.Main).launch {
+                delay(hideHandleAfter.toLong())
+                handleImageView.animateVisibility(false)
             }
         }
 
