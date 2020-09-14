@@ -21,7 +21,7 @@ class AdvancedAdapter(private val mContext : Context?, private val countriesList
         , RecyclerViewFastScroller.OnPopupViewUpdate {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.mTextView?.text = countriesList[position].countryName
+        holder.mTextView?.text = countriesList[position].country
     }
 
     override fun getItemCount() = countriesList.size
