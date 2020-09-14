@@ -29,7 +29,6 @@ class BasicFragment : Fragment(){
 
         with(view){
             with(this.basic_recycler_view){
-                layoutManager = LinearLayoutManager(activity)
                 adapter = BasicAdapter(activity)
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }

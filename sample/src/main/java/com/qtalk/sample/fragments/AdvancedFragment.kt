@@ -34,7 +34,6 @@ class AdvancedFragment : Fragment(){
         })
 
         with(view.advanced_recycler_view){
-           layoutManager = LinearLayoutManager(activity)
            this.adapter = adapter
            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
