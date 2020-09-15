@@ -623,7 +623,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     }
 
     /**
-     * Updates the text and checks if the interface is implemented or not
+     * Update popup text or hide popup when the interface is not implemented
      * */
     private fun updateTextInPopup(position: Int) {
         if (position !in 0 until (recyclerView.adapter?.itemCount ?: 1)) {
