@@ -1,3 +1,11 @@
+# From v0.2.1:
+
+# Major Changes
+* Adds support for min API 16
+
+## Bug fixes
+* Fixes crash due to incomplete implementation of `onFlingListener` 
+
 # From v0.2.0:
 
 ## New Features
