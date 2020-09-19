@@ -395,8 +395,8 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                         // move the handle only if fastScrolled, else leave the translation of the handle to the onScrolled method on the listener
 
                         if (isFastScrollEnabled) {
-                            moveViewByRelativeInBounds(handleImageView, currentRelativePos)
-                            moveViewByRelativeInBounds(
+                            moveViewToRelativePositionWithBounds(handleImageView, currentRelativePos)
+                            moveViewToRelativePositionWithBounds(
                                 popupTextView,
                                 currentRelativePos - popupLength
                             )
@@ -554,7 +554,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
      * @param view the view to move and
      * @param finalOffset the offset to move to
      * */
-    private fun moveViewByRelativeInBounds(view: View, finalOffset: Float) {
+    private fun moveViewToRelativePositionWithBounds(view: View, finalOffset: Float) {
         when (fastScrollDirection) {
             FastScrollDirection.HORIZONTAL ->
                 view.x = min(max(finalOffset, 0f), (width.toFloat() - view.width.toFloat()))
@@ -789,8 +789,8 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
 
             val finalOffset: Float = offset.toFloat() / (range - extent) * (extent - handleLength)
 
-            moveViewByRelativeInBounds(handleImageView, finalOffset)
-            moveViewByRelativeInBounds(popupTextView, finalOffset - popupLength)
+            moveViewToRelativePositionWithBounds(handleImageView, finalOffset)
+            moveViewToRelativePositionWithBounds(popupTextView, finalOffset - popupLength)
         }
     }
 
