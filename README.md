@@ -114,7 +114,7 @@ There is no need for any additional proguard rules when using this.
 
 ## Contributing
 
-First of all, thank you for your interest :) 
+Thank you for your interest :) 
 
 To start contributing, you can check out the [issues](https://github.com/quiph/RecyclerView-FastScroller/labels/good%20first%20issue) section with the tag "Good first issue" to start working on the low-hanging fruits. Once you feel comfortable to contribute, fork the project and raise a PR, we'd be happy to review it <3 
 
@@ -166,6 +166,8 @@ by the core team. When merging, we use GitHub's "Rebase and merge":
 - We keep a linear git history for readability
 - We prefer incremental commits to remain in the history
   - It's easier to read, helps with bisection, and matches repo state during review.### Building the source: 
+
+### Building the source
 
 To build the `aar` using using gradle, simply run the build command, `./gradlew build` this will build and place the aars in the `outputs/aar` folder inside the library
 module. The final path may look something like: 
