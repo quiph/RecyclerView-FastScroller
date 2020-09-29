@@ -1,17 +1,18 @@
-<com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fast_scroller_contacts"
-    app:handleWidth="@dimen/default_handle_size"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     app:handleHeight="32dp"
-    app:popupTextStyle="@style/ContactsPopupTextViewStyle"
+    app:handleWidth="@dimen/default_handle_size"
     app:popupDrawable="@drawable/contacts_fastscroller_drawable"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    app:popupTextStyle="@style/ContactsPopupTextViewStyle">
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_height="match_parent"
+        android:id="@+id/contacts_recycler_view"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/recycler_view_margin"
         android:layout_marginRight="@dimen/recycler_view_margin"
-        android:id="@+id/contacts_recycler_view">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"></androidx.recyclerview.widget.RecyclerView>
 </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>

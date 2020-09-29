@@ -9,13 +9,13 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.viewpager.widget.PagerTitleStrip
+            android:id="@+id/pager_header"
+            style="@style/PagerTitleStripStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/tealLight"
-            android:id="@+id/pager_header"
-            style="@style/PagerTitleStripStyle"
-            android:padding="12dp">
-        </androidx.viewpager.widget.PagerTitleStrip>
+            android:padding="12dp"></androidx.viewpager.widget.PagerTitleStrip>
     </androidx.viewpager.widget.ViewPager>
 </LinearLayout>

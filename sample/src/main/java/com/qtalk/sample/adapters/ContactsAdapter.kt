@@ -11,22 +11,24 @@ import com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
 import com.qtalk.sample.R
 import kotlinx.android.synthetic.main.recycler_view_list_item.view.*
 
-class ContactsAdapter(private val mContext: Context?, private val mNameList: List<String>):
-        RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>(), RecyclerViewFastScroller.OnPopupTextUpdate
-{
+class ContactsAdapter(private val mContext: Context?, private val mNameList: List<String>) :
+    RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>(),
+    RecyclerViewFastScroller.OnPopupTextUpdate {
     override fun onChange(position: Int): CharSequence {
-        return if(mNameList[position].matches(Patterns.PHONE.toRegex()))
+        return if (mNameList[position].matches(Patterns.PHONE.toRegex()))
             "#"
         else
             mNameList[position][0].toString().toUpperCase()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder {
-        return ContactsViewHolder(LayoutInflater.from(mContext).inflate(R.layout.recycler_view_list_item, parent, false))
+        return ContactsViewHolder(
+            LayoutInflater.from(mContext).inflate(R.layout.recycler_view_list_item, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
-       return mNameList.size
+        return mNameList.size
     }
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {

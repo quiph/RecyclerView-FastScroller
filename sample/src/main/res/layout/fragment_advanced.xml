@@ -1,40 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/countries_by_population"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:textColor="@color/tealLight"
         android:layout_margin="@dimen/countries_margin"
-        />
+        android:gravity="center"
+        android:text="@string/countries_by_population"
+        android:textColor="@color/tealLight"
+        android:textSize="14sp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/tealLight"
         android:layout_marginLeft="@dimen/line_margin"
         android:layout_marginRight="@dimen/line_margin"
-        />
+        android:background="@color/tealLight" />
 
-    <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
         android:id="@+id/fast_scroller"
-        app:handleWidth="@dimen/default_handle_size"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:handleHeight="32dp"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        app:handleWidth="@dimen/default_handle_size">
+
         <androidx.recyclerview.widget.RecyclerView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
             android:id="@+id/advanced_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/recycler_view_margin"
-            android:layout_marginRight="@dimen/recycler_view_margin">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_marginRight="@dimen/recycler_view_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
     </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
 
 </LinearLayout>
