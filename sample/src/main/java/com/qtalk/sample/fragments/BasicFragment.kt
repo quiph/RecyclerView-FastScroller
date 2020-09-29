@@ -12,21 +12,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.qtalk.sample.R
 import com.qtalk.sample.adapters.BasicAdapter
 import kotlinx.android.synthetic.main.fragment_basic.view.*
+import kotlinx.coroutines.*
 
 class BasicFragment : Fragment(){
 
-    private var swipeRefreshLayout:SwipeRefreshLayout? = null
+    private var swipeRefreshLayout: SwipeRefreshLayout? = null
 
-    private val swipeHandler by lazy {
-        Handler()
-    }
-
-    private val swipeRunnable by lazy {
-        Runnable {
-            if (swipeRefreshLayout?.isRefreshing == true)
-                swipeRefreshLayout?.isRefreshing = false
-        }
-    }
+    private var swipeJob: Job? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_basic, container, false)
@@ -37,7 +29,6 @@ class BasicFragment : Fragment(){
 
         with(view){
             with(this.basic_recycler_view){
-                layoutManager = LinearLayoutManager(activity)
                 adapter = BasicAdapter(activity)
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
@@ -45,15 +36,20 @@ class BasicFragment : Fragment(){
             with(this.swipe_refresh_layout){
                 swipeRefreshLayout = this
                 setOnRefreshListener {
-                    swipeHandler.postDelayed(swipeRunnable,3000L)
+                    swipeJob = CoroutineScope(Dispatchers.Main).launch {
+                        delay(3000)
+
+                        if (swipeRefreshLayout?.isRefreshing == true)
+                            swipeRefreshLayout?.isRefreshing = false
+                    }
                 }
             }
         }
     }
 
     override fun onDestroyView() {
+        swipeJob?.cancel()
         super.onDestroyView()
-        swipeHandler.removeCallbacks(swipeRunnable)
     }
 
 }
