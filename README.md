@@ -112,7 +112,62 @@ Check the sample to view the implementation. Many such shapes and text styles ca
 #### Proguard: 
 There is no need for any additional proguard rules when using this. 
 
-### Building the source: 
+## Contributing
+
+Thank you for your interest :) 
+
+To start contributing, you can check out the [issues](https://github.com/quiph/RecyclerView-FastScroller/labels/good%20first%20issue) section with the tag "Good first issue" to start working on the low-hanging fruits. Once you feel comfortable to contribute, fork the project and raise a PR, we'd be happy to review it <3 
+
+### Creating a Pull Request
+Our team follows [the GitHub pull request workflow](https://guides.github.com/introduction/flow/): fork, branch, commit,
+pull request, review, merge. If you're new to GitHub, check out [the official
+guides](https://guides.github.com/) for more information.
+
+An example commit message summary looks like, `For #5: Upgrade gradle to v1.3.0`.
+
+Please follow these guidelines for your pull requests:
+
+- All Pull Requests should address an issue. If your pull request doesn't have an
+issue, file it!
+  - GitHub search defaults to issues, not PRs, so ensuring there is an issue for your PR
+  means it'll be easier to find
+- The commit message summary should briefly describe what code changed in the commit, *not
+the issue you're fixing.*
+  - We encourage you to use the commit message body to elaborate what changed and why
+- Include the issue number in your commit messages. This links your PR to the issue it's
+intended to fix.
+  - If your PR closes an issue, include `Closes #...` in one of your commit messages. This
+  will automatically close the linked issue [more info](https://help.github.com/articles/closing-issues-using-keywords/).
+  - If your PR has to go through a longer process, for example QA verification, use the 
+  `For #...` syntax to allow the linked issue to be closed at a later, more appropriate time.
+- Prefer "micro commits".
+  - A micro commit is a small commit that generally changes one thing.
+  A single Pull Request may comprise of multiple incremental micro commits.
+  - A series of micro commits should tell a story. For example, if your goal is to add a new
+  icon to the toolbar, you can make a commit to add the icon asset and then make a commit to
+  use the icon in the code.
+  - Commits should generally not undo the work of previous commits in the same PR.
+  - If you're not comfortable making micro commits, it's okay to begin contributing without
+  them.
+- Add a reviewer to ensure someone sees, and reviews, your pull request so it can be merged
+- If the tests fail, please try to fix them! Keeping the tests passing ensures our code isn't
+broken and the code is unlikely to get merged without passing tests. If you run into trouble,
+ask for help!
+- If there are UI changes, include a screenshot so UX can also do a visual review
+- When in doubt, look at the closed PRs in the repository to follow as an example or ask
+us online!
+
+If your code is not approved, address the suggested comments, push your changes, and re-request
+review from your reviewer again.
+
+## Merging
+After your code has been approved and the tests pass, your code will be merged into master
+by the core team. When merging, we use GitHub's "Rebase and merge":
+- We keep a linear git history for readability
+- We prefer incremental commits to remain in the history
+  - It's easier to read, helps with bisection, and matches repo state during review.### Building the source: 
+
+### Building the source
 
 To build the `aar` using using gradle, simply run the build command, `./gradlew build` this will build and place the aars in the `outputs/aar` folder inside the library
 module. The final path may look something like: 
@@ -141,6 +196,6 @@ Once the environment is setup as mentioned in the gist, run the following comman
 
 #### TODO: 
 
-* Add support for `horizontal` fast scrolling
-* Make handle size flexible to item count in adapter
-* Fix 0 item bug, which makes the fast scroller visible
+* [ ] Add support for `horizontal` fast scrolling
+* [ ] Make handle size flexible to item count in adapter
+* [ ] Fix 0 item bug, which makes the fast scroller visible
