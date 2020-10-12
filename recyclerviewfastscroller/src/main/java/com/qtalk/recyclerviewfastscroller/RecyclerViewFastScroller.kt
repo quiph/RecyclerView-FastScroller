@@ -525,6 +525,10 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         when (fastScrollDirection) {
             FastScrollDirection.HORIZONTAL -> {
                 handleImageView.setPadding(0, padding, 0, padding)
+                popupTextView.layoutParams = LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT
+                ).also { it.addRule(ALIGN_BOTTOM, R.id.trackView) }
                 trackView.layoutParams = LayoutParams(
                     LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT
@@ -532,6 +536,15 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             }
             FastScrollDirection.VERTICAL -> {
                 handleImageView.setPadding(padding, 0, padding, 0)
+                popupTextView.layoutParams = LayoutParams(
+                        LayoutParams.WRAP_CONTENT,
+                        LayoutParams.WRAP_CONTENT
+                ).also {
+                    if (Build.VERSION.SDK_INT > 16)
+                        it.addRule(ALIGN_END, R.id.trackView)
+                    else
+                        it.addRule(ALIGN_RIGHT, R.id.trackView)
+                }
                 trackView.layoutParams = LayoutParams(
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.MATCH_PARENT
@@ -545,10 +558,14 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         }
         post {
             when (fastScrollDirection) {
-                FastScrollDirection.HORIZONTAL ->
+                FastScrollDirection.HORIZONTAL -> {
                     handleImageView.y = 0F
-                FastScrollDirection.VERTICAL ->
+                    popupTextView.y = trackView.y - popupTextView.height
+                }
+                FastScrollDirection.VERTICAL -> {
                     handleImageView.x = 0F
+                    popupTextView.x = trackView.x - popupTextView.width
+                }
             }
 
             onScrollListener.onScrolled(recyclerView, 0, 0)

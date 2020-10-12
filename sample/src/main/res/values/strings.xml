@@ -2,6 +2,7 @@
     <string name="app_name">Sample</string>
     <string name="basic_fragment">Basic</string>
     <string name="advanced_fragment">Advanced</string>
+    <string name="programming_language_fragment">Programming Languages</string>
     <string name="contacts_fragment">Contacts</string>
     <string name="countries_by_population">Countries by population</string>
 </resources>
