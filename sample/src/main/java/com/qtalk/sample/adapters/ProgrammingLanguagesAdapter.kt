@@ -8,7 +8,7 @@ import com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
 import com.qtalk.sample.R
 import kotlinx.android.synthetic.main.recycler_view_list_item.view.*
 
-class ProgrammingLanguageAdapter(private val list: List<String>) :
+class ProgrammingLanguagesAdapter(private val list: List<String>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     RecyclerViewFastScroller.OnPopupTextUpdate
 {

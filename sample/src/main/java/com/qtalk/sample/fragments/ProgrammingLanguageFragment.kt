@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
 import com.qtalk.sample.R
-import com.qtalk.sample.adapters.ProgrammingLanguageAdapter
+import com.qtalk.sample.adapters.ProgrammingLanguagesAdapter
 import kotlinx.android.synthetic.main.fragment_programming.view.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -17,7 +17,7 @@ class ProgrammingLanguageFragment : Fragment() {
 
     private val programmingLanguages: List<String> by lazy {
         Json.decodeFromString<List<String>>(
-                requireActivity().assets.open("programming.json").use {
+                requireActivity().assets.open("programming_languages.json").use {
                     it.reader().readText()
                 }
         ).sortedBy { it.toLowerCase(Locale.ROOT) }
@@ -41,7 +41,7 @@ class ProgrammingLanguageFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view.recycler_view.adapter = ProgrammingLanguageAdapter(programmingLanguages)
+        view.recycler_view.adapter = ProgrammingLanguagesAdapter(programmingLanguages)
     }
 
 }
