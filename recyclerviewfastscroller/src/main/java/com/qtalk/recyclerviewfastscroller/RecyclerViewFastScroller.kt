@@ -211,7 +211,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             refreshHandleImageViewSize()
         }
 
-    var hideHandleAfter: Int = 0
+    var handleVisibilityDuration: Int = 0
 
     // --- internal properties
     private var popupPosition: PopupPosition = Defaults.popupPosition
@@ -329,8 +329,8 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                 (loadDrawableFromAttributes(R.styleable.RecyclerViewFastScroller_handleDrawable)
                     ?: ContextCompat.getDrawable(context, Defaults.handleDrawableInt))
 
-            hideHandleAfter =
-                    attribs.getInt(R.styleable.RecyclerViewFastScroller_hideHandleAfter, Defaults.hideHandleAfter)
+            handleVisibilityDuration =
+                    attribs.getInt(R.styleable.RecyclerViewFastScroller_handleVisibilityDuration, Defaults.hideHandleAfter)
 
             handleHeight =
                 attribs.getDimensionPixelSize(
@@ -609,11 +609,11 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             handleImageView.scaleY = 1F
         }
 
-        if (hideHandleAfter > 0) {
+        if (handleVisibilityDuration > 0) {
             hideHandleJob?.cancel()
 
             hideHandleJob = CoroutineScope(Dispatchers.Main).launch {
-                delay(hideHandleAfter.toLong())
+                delay(handleVisibilityDuration.toLong())
                 handleImageView.animateVisibility(false)
             }
         }
