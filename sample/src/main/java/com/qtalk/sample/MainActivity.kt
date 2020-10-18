@@ -9,15 +9,17 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.qtalk.sample.fragments.AdvancedFragment
 import com.qtalk.sample.fragments.BasicFragment
 import com.qtalk.sample.fragments.ContactsFragment
+import com.qtalk.sample.fragments.ProgrammingLanguageFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        private const val VIEWPAGER_COUNT = 3
+        private const val VIEWPAGER_COUNT = 4
         private const val PAGE_INDEX_BASIC = 0
         private const val PAGE_INDEX_ADVANCE = 1
-        private const val PAGE_INDEX_CONTACTS = 2
+        private const val PAGE_INDEX_LANGUAGES = 2
+        private const val PAGE_INDEX_CONTACTS = 3
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         view_pager.adapter = ViewPagerAdapter(supportFragmentManager, this)
     }
 
-    private class ViewPagerAdapter internal constructor(
+    private class ViewPagerAdapter constructor(
         fm: FragmentManager,
         val mContext: Context?
     ) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity() {
             return when (position) {
                 PAGE_INDEX_BASIC -> BasicFragment()
                 PAGE_INDEX_ADVANCE -> AdvancedFragment()
+                PAGE_INDEX_LANGUAGES -> ProgrammingLanguageFragment()
                 PAGE_INDEX_CONTACTS -> ContactsFragment()
                 else -> throw IllegalArgumentException("Not expecting $position.")
             }
@@ -49,6 +52,7 @@ class MainActivity : AppCompatActivity() {
             when (position) {
                 PAGE_INDEX_BASIC -> return mContext?.resources?.getString(R.string.basic_fragment)
                 PAGE_INDEX_ADVANCE -> return mContext?.resources?.getString(R.string.advanced_fragment)
+                PAGE_INDEX_LANGUAGES -> return mContext?.resources?.getString(R.string.programming_language_fragment)
                 PAGE_INDEX_CONTACTS -> return mContext?.resources?.getString(R.string.contacts_fragment)
             }
             return ""
