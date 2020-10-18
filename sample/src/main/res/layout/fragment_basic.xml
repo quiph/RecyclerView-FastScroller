@@ -10,7 +10,8 @@
         android:layout_height="match_parent"
         app:handleHeight="32dp"
         app:handleWidth="@dimen/default_handle_size"
-        app:supportSwipeToRefresh="true">
+        app:supportSwipeToRefresh="true"
+        app:handleVisibilityDuration="500">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/basic_recycler_view"
