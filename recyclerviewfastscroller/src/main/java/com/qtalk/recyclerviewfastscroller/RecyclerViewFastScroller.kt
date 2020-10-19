@@ -42,7 +42,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -73,10 +78,9 @@ import kotlin.math.roundToInt
  *  **Handle Size:** The fastScroller automatically adjusts the size of the handle, but if [RecyclerViewFastScroller.isFixedSizeHandle] is set as true handle [R.styleable.RecyclerViewFastScroller_handleHeight]
  *  and [R.styleable.RecyclerViewFastScroller_handleWidth] need to be provided else default value of 18dp will be taken for both.
  *
- * @version 1.0
+ * @version 2.0
  * */
 
-// todo@shahsurajk write for x direction
 class RecyclerViewFastScroller @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : RelativeLayout(context, attrs, defStyleAttr) {
@@ -124,8 +128,8 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         val fastScrollDirection: FastScrollDirection = FastScrollDirection.VERTICAL
         const val isFixedSizeHandle: Boolean = false
         const val isFastScrollEnabled: Boolean = true
-        const val DEFAULT_ANIM_DURATION: Long = 100
-        const val DEFAULT_POPUP_VISIBILITY_DURATION = 200L
+        const val animationDuration: Long = 100
+        const val popupVisibilityDuration = 200L
         const val hasEmptyItemDecorator: Boolean = true
         const val handleVisibilityDuration: Int = 0
         const val trackMargin: Int = 0
@@ -211,7 +215,10 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             refreshHandleImageViewSize()
         }
 
-    var handleVisibilityDuration: Int = 0
+    /**
+     * The duration for which the handle should remain visible
+     * */
+    var handleVisibilityDuration: Int = -1
 
     // --- internal properties
     private var popupPosition: PopupPosition = Defaults.popupPosition
@@ -330,7 +337,10 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                     ?: ContextCompat.getDrawable(context, Defaults.handleDrawableInt))
 
             handleVisibilityDuration =
-                    attribs.getInt(R.styleable.RecyclerViewFastScroller_handleVisibilityDuration, Defaults.handleVisibilityDuration)
+                attribs.getInt(
+                    R.styleable.RecyclerViewFastScroller_handleVisibilityDuration,
+                    Defaults.handleVisibilityDuration
+                )
 
             handleHeight =
                 attribs.getDimensionPixelSize(
@@ -472,7 +482,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                             // hide the popup with a default anim delay
                             handler.postDelayed(
                                 popupAnimationRunnable,
-                                Defaults.DEFAULT_POPUP_VISIBILITY_DURATION
+                                Defaults.popupVisibilityDuration
                             )
                         }
                         super.onTouchEvent(motionEvent)
@@ -539,8 +549,8 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
             FastScrollDirection.VERTICAL -> {
                 handleImageView.setPadding(padding, 0, padding, 0)
                 popupTextView.layoutParams = LayoutParams(
-                        LayoutParams.WRAP_CONTENT,
-                        LayoutParams.WRAP_CONTENT
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT
                 ).also {
                     if (Build.VERSION.SDK_INT > 16)
                         it.addRule(ALIGN_END, R.id.trackView)
@@ -655,7 +665,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     }
 
     /**
-     * Custom animator extension, as [ViewPropertyAnimator] doesn't have individual listeners, decluttering, also present in android KTX
+     * Custom animator extension, as [ViewPropertyAnimator] doesn't have individual listeners, de-cluttering, also present in android KTX
      * */
     private inline fun ViewPropertyAnimator.onAnimationCancelled(crossinline body: () -> Unit) {
         this.setListener(object : Animator.AnimatorListener {
@@ -682,13 +692,13 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
     private fun View.animateVisibility(makeVisible: Boolean = true) {
 
         val scaleFactor: Float = if (makeVisible) 1f else 0f
-        this.animate().scaleX(scaleFactor).setDuration(Defaults.DEFAULT_ANIM_DURATION)
+        this.animate().scaleX(scaleFactor).setDuration(Defaults.animationDuration)
             .onAnimationCancelled {
-                this.animate().scaleX(scaleFactor).duration = Defaults.DEFAULT_ANIM_DURATION
+                this.animate().scaleX(scaleFactor).duration = Defaults.animationDuration
             }
-        this.animate().scaleY(scaleFactor).setDuration(Defaults.DEFAULT_ANIM_DURATION)
+        this.animate().scaleY(scaleFactor).setDuration(Defaults.animationDuration)
             .onAnimationCancelled {
-                this.animate().scaleY(scaleFactor).duration = Defaults.DEFAULT_ANIM_DURATION
+                this.animate().scaleY(scaleFactor).duration = Defaults.animationDuration
             }
     }
 

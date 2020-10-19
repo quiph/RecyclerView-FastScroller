@@ -22,7 +22,7 @@
         android:background="@color/tealLight" />
 
     <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
-        android:id="@+id/fast_scroller"
+        android:id="@+id/fastScroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:handleHeight="32dp"

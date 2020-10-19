@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.qtalk.sample.fragments.AdvancedFragment
 import com.qtalk.sample.fragments.BasicFragment
 import com.qtalk.sample.fragments.ContactsFragment
-import com.qtalk.sample.fragments.ProgrammingLanguageFragment
+import com.qtalk.sample.fragments.ProgrammingLanguagesFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             return when (position) {
                 PAGE_INDEX_BASIC -> BasicFragment()
                 PAGE_INDEX_ADVANCE -> AdvancedFragment()
-                PAGE_INDEX_LANGUAGES -> ProgrammingLanguageFragment()
+                PAGE_INDEX_LANGUAGES -> ProgrammingLanguagesFragment()
                 PAGE_INDEX_CONTACTS -> ContactsFragment()
                 else -> throw IllegalArgumentException("Not expecting $position.")
             }
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             when (position) {
                 PAGE_INDEX_BASIC -> return mContext?.resources?.getString(R.string.basic_fragment)
                 PAGE_INDEX_ADVANCE -> return mContext?.resources?.getString(R.string.advanced_fragment)
-                PAGE_INDEX_LANGUAGES -> return mContext?.resources?.getString(R.string.programming_language_fragment)
+                PAGE_INDEX_LANGUAGES -> return mContext?.resources?.getString(R.string.programming_languages_fragment)
                 PAGE_INDEX_CONTACTS -> return mContext?.resources?.getString(R.string.contacts_fragment)
             }
             return ""

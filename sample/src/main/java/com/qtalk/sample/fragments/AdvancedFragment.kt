@@ -35,7 +35,7 @@ class AdvancedFragment : Fragment() {
         val adapter = AdvancedAdapter(
             activity,
             countriesList,
-            with(view.fast_scroller as RecyclerViewFastScroller) {
+            with(view.fastScroller as RecyclerViewFastScroller) {
                 handleDrawable
             })
 
