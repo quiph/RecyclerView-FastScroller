@@ -12,7 +12,7 @@ A simple, easy to use and configurable fast scroller for `RecyclerView`
 
 ## Adding the dependency
 ```groovy
-implementation 'com.quiph.ui:recyclerviewfastscroller:0.2.3'
+implementation 'com.quiph.ui:recyclerviewfastscroller:1.0.0'
 ```
 ## Java-only project?
 As Kotlin compiles to Java, there's no need to externally add the Kotlin runtime or any other Kotlin dependencies when using this. Also the library is **100% compatible with Java** and requires **no migration** of the base project to Kotlin. 
@@ -81,9 +81,12 @@ To get the callback from the fast scroller for different states, a listener can 
    2. `afterTrack` - Position it after the scroll track
 * `handleWidth` - Use to custom set the width of the fast scroll handle - Defaults to 18dp
 * `handleHeight` - Use to custom set the height of the fast scroll handle - Defaults to 18dp
-* `handleHasFixedSize` - TODO - currently setting this to false doesn't do anything, as the size of the handle is independent of the item count
 * `addLastItemPadding` - By default the last item of the `RecyclerView` associated with the fast scroller has an extra padding of the height of the first visible item found, to disable this behaviour set this as `false`
 * `supportSwipeToRefresh` - To support smooth scrolling for RecyclerViews nested within a `SwipeRefreshLayout`
+* `trackMarginStart` - Adds a start margin to the track of the fastscroller
+* `trackMarginEnd` - Adds a end margin to the track of the fastscroller
+* `handleVisibilityDuration` - Adds an option to specify the duration to hide the fastscroller handle, defaults to -1, which doesn't hide it
+* `handleHasFixedSize` - TODO - currently setting this to false doesn't do anything, as the size of the handle is independent of the item count
 * `fastScrollDirection` - TODO - currently the fast scroller only works in the `vertical` direction
 
 ## Advanced usage:

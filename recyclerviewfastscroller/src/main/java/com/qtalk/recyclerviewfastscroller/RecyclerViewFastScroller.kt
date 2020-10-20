@@ -78,7 +78,7 @@ import kotlin.math.roundToInt
  *  **Handle Size:** The fastScroller automatically adjusts the size of the handle, but if [RecyclerViewFastScroller.isFixedSizeHandle] is set as true handle [R.styleable.RecyclerViewFastScroller_handleHeight]
  *  and [R.styleable.RecyclerViewFastScroller_handleWidth] need to be provided else default value of 18dp will be taken for both.
  *
- * @version 2.0
+ * @version 1.0
  * */
 
 class RecyclerViewFastScroller @JvmOverloads constructor(
@@ -216,7 +216,7 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
         }
 
     /**
-     * The duration for which the handle should remain visible
+     * The duration for which the handle should remain visible, defaults to -1 (don't hide)
      * */
     var handleVisibilityDuration: Int = -1
 
