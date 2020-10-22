@@ -39,6 +39,7 @@ import androidx.annotation.StyleRes
 import androidx.annotation.StyleableRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
+import androidx.core.text.BidiFormatter
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -552,10 +553,17 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT
                 ).also {
-                    if (Build.VERSION.SDK_INT > 16)
-                        it.addRule(ALIGN_END, R.id.trackView)
-                    else
-                        it.addRule(ALIGN_RIGHT, R.id.trackView)
+                    if (layoutDirection == LAYOUT_DIRECTION_RTL) {
+                        if (Build.VERSION.SDK_INT > 16)
+                            it.addRule(ALIGN_START, R.id.trackView)
+                        else
+                            it.addRule(ALIGN_LEFT, R.id.trackView)
+                    } else {
+                        if (Build.VERSION.SDK_INT > 16)
+                            it.addRule(ALIGN_END, R.id.trackView)
+                        else
+                            it.addRule(ALIGN_RIGHT, R.id.trackView)
+                    }
                 }
                 trackView.layoutParams = LayoutParams(
                     LayoutParams.WRAP_CONTENT,
@@ -575,8 +583,13 @@ class RecyclerViewFastScroller @JvmOverloads constructor(
                     popupTextView.y = trackView.y - popupTextView.height
                 }
                 FastScrollDirection.VERTICAL -> {
-                    handleImageView.x = 0F
-                    popupTextView.x = trackView.x - popupTextView.width
+                    if (layoutDirection == LAYOUT_DIRECTION_RTL) {
+                        handleImageView.x = 0F
+                        popupTextView.x = popupTextView.width - trackView.x
+                    } else {
+                        handleImageView.x = 0F
+                        popupTextView.x = trackView.x - popupTextView.width
+                    }
                 }
             }
 
