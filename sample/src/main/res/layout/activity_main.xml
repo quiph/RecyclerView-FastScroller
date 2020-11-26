@@ -3,19 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.viewpager.widget.ViewPager
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:id="@+id/tabLayout"
+        style="@style/Widget.MaterialComponents.TabLayout.PrimarySurface"
+        android:layout_height="wrap_content"/>
+
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.viewpager.widget.PagerTitleStrip
-            android:id="@+id/pager_header"
-            style="@style/PagerTitleStripStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/tealLight"
-            android:padding="12dp"></androidx.viewpager.widget.PagerTitleStrip>
-    </androidx.viewpager.widget.ViewPager>
+        android:layout_height="match_parent"/>
 </LinearLayout>
