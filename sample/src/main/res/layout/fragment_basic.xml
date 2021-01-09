@@ -5,19 +5,21 @@
     android:layout_height="match_parent">
 
     <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
-        android:id="@+id/fast_scroller"
+        android:id="@+id/fastScroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:handleHeight="32dp"
         app:handleWidth="@dimen/default_handle_size"
-        app:supportSwipeToRefresh="true">
+        app:supportSwipeToRefresh="true"
+        app:handleVisibilityDuration="500">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/basic_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/recycler_view_margin"
-            android:layout_marginRight="@dimen/recycler_view_margin" />
+            android:layout_marginRight="@dimen/recycler_view_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
 
