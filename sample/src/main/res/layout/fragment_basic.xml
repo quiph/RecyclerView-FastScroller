@@ -1,26 +1,41 @@
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
-        android:id="@+id/fastScroller"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:handleHeight="32dp"
-        app:handleWidth="@dimen/default_handle_size"
-        app:supportSwipeToRefresh="true"
-        app:handleVisibilityDuration="500">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/basic_recycler_view"
+        <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
+            android:id="@+id/fastScroller"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/recycler_view_margin"
-            android:layout_marginRight="@dimen/recycler_view_margin"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:handleHeight="32dp"
+            app:handleWidth="@dimen/default_handle_size"
+            app:supportSwipeToRefresh="true"
+            app:handleVisibilityDuration="500">
 
-    </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/basic_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/recycler_view_margin"
+                android:layout_marginRight="@dimen/recycler_view_margin"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/ic_action_view_as_grid" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
