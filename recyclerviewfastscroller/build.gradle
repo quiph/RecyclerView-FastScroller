@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply from: "${rootProject.projectDir}/common.gradle"
 // https://github.com/chrisbanes/gradle-mvn-push/issues/65
 //apply from: 'https://raw.githubusercontent.com/chrisbanes/gradle-mvn-push/8cfffbbff6b9094af1c92318ea5d5a5bb0b8bb30/gradle-mvn-push.gradle'
 android {
