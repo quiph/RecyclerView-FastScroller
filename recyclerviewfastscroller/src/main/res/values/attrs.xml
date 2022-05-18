@@ -19,10 +19,12 @@
         <attr name="handleHeight" format="dimension" />
         <attr name="handleHasFixedSize" format="boolean" />
         <attr name="supportSwipeToRefresh" format="boolean" />
-
+      
         <attr name="trackMarginStart" format="dimension" />
         <attr name="trackMarginEnd" format="dimension" />
 
         <attr name="handleVisibilityDuration" format="integer" />
+
+        <attr name="disableTrack" format="boolean"/>
     </declare-styleable>
 </resources>
