@@ -1,4 +1,4 @@
-# <img src ="https://upload.wikimedia.org/wikipedia/commons/b/b5/Kotlin-logo.png" width=24> RecyclerViewFastScroller
+# <img src ="https://upload.wikimedia.org/wikipedia/commons/0/06/Kotlin_Icon.svg" width=24> RecyclerViewFastScroller
 
 ![Github release](https://img.shields.io/github/release/quiph/recyclerview-fastscroller.svg)
 ![Maven Central](https://img.shields.io/maven-central/v/com.quiph.ui/recyclerviewfastscroller)
